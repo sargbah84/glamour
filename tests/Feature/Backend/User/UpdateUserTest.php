@@ -40,28 +40,31 @@ class UpdateUserTest extends TestCase
         $this->assertDatabaseMissing('users', [
             'id' => $user->id,
             'type' => User::TYPE_ADMIN,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
         ]);
 
         $this->patch("/admin/auth/user/{$user->id}", [
             'type' => User::TYPE_ADMIN,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'roles' => [
-                Role::whereName(config('boilerplate.access.role.admin'))->first()->id,
+                Role::whereName(config('global.access.role.admin'))->first()->id,
             ],
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'type' => User::TYPE_ADMIN,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
         ]);
 
         $this->assertDatabaseHas('model_has_roles', [
-            'role_id' => Role::whereName(config('boilerplate.access.role.admin'))->first()->id,
+            'role_id' => Role::whereName(config('global.access.role.admin'))->first()->id,
             'model_type' => User::class,
             'model_id' => User::whereEmail('john@example.com')->first()->id,
         ]);
@@ -79,7 +82,7 @@ class UpdateUserTest extends TestCase
         $this->logout();
 
         $otherAdmin = User::factory()->admin()->create();
-        $otherAdmin->assignRole(config('boilerplate.access.role.admin'));
+        $otherAdmin->assignRole(config('global.access.role.admin'));
 
         $this->actingAs($otherAdmin);
 
@@ -95,18 +98,21 @@ class UpdateUserTest extends TestCase
 
         $this->assertDatabaseMissing('users', [
             'id' => $admin->id,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
         ]);
 
         $this->patch("/admin/auth/user/{$admin->id}", [
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $admin->id,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
         ]);
 
@@ -115,13 +121,14 @@ class UpdateUserTest extends TestCase
         // Make sure other admins can not update the master admin
 
         $otherAdmin = User::factory()->admin()->create();
-        $otherAdmin->assignRole(config('boilerplate.access.role.admin'));
+        $otherAdmin->assignRole(config('global.access.role.admin'));
 
         $this->actingAs($otherAdmin);
 
         $response = $this->patch("/admin/auth/user/{$admin->id}", [
             'id' => $admin->id,
-            'name' => 'Changed Name',
+            'firstname' => 'Changed',
+            'lastname' => 'Name',
             'email' => 'changed@example.com',
         ]);
 
@@ -129,7 +136,8 @@ class UpdateUserTest extends TestCase
 
         $this->assertDatabaseMissing('users', [
             'id' => $admin->id,
-            'name' => 'Changed Name',
+            'firstname' => 'Changed',
+            'lastname' => 'Name',
             'email' => 'changed@example.com',
         ]);
     }
@@ -148,7 +156,8 @@ class UpdateUserTest extends TestCase
         ]);
 
         $this->patch("/admin/auth/user/{$admin->id}", [
-            'name' => $admin->name,
+            'firstname' => $admin->firstname,
+            'lastname' => $admin->lastname,
             'email' => $admin->email,
             'roles' => [$role->id],
         ]);
@@ -169,7 +178,8 @@ class UpdateUserTest extends TestCase
 
         $response = $this->patch("/admin/auth/user/{$user->id}", [
             'type' => User::TYPE_USER,
-            'name' => 'Jane Doe',
+            'firstname' => 'Jane',
+            'lastname' => 'Doe',
         ]);
 
         $response->assertSessionHas('flash_danger', __('You do not have access to do that.'));
@@ -177,7 +187,8 @@ class UpdateUserTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'type' => User::TYPE_ADMIN,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
         ]);
     }
 }
