@@ -25,50 +25,54 @@ class UserAccountTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        config(['boilerplate.access.user.change_email' => true]);
+        config(['global.access.user.change_email' => true]);
 
         $response = $this->patch('/profile/update');
 
-        $response->assertSessionHasErrors(['name', 'email']);
+        $response->assertSessionHasErrors(['firstname', 'lastname', 'email']);
 
-        config(['boilerplate.access.user.change_email' => false]);
+        config(['global.access.user.change_email' => false]);
 
         $response = $this->patch('/profile/update');
 
-        $response->assertSessionHasErrors('name');
+        $response->assertSessionHasErrors('firstname');
     }
 
     /** @test */
     public function a_user_can_update_their_profile()
     {
-        config(['boilerplate.access.user.change_email' => false]);
+        config(['global.access.user.change_email' => false]);
 
         $user = User::factory()->create([
-            'name' => 'Jane Doe',
+            'firstname' => 'Jane',
+            'lastname' => 'Doe',
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => 'Jane Doe',
+            'firstname' => 'Jane',
+            'lastname' => 'Doe',
         ]);
 
         $response = $this->actingAs($user)
             ->patch('/profile/update', [
-                'name' => 'John Doe',
+                'firstname' => 'John',
+                'lastname' => 'Doe',
             ])->assertRedirect('/account?#information');
 
         $response->assertSessionHas('flash_success', __('Profile successfully updated.'));
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
         ]);
     }
 
     /** @test */
     public function a_user_can_update_their_email_address()
     {
-        config(['boilerplate.access.user.change_email' => true]);
+        config(['global.access.user.change_email' => true]);
 
         $user = User::factory()->create([
             'email' => 'jane@doe.com',
@@ -81,7 +85,8 @@ class UserAccountTest extends TestCase
 
         $response = $this->actingAs($user)
             ->patch('/profile/update', [
-                'name' => 'John Doe',
+                'firstname' => 'John',
+                'lastname' => 'Doe',
                 'email' => 'john@doe.com',
             ])->assertRedirect('/email/verify');
 
@@ -90,7 +95,8 @@ class UserAccountTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@doe.com',
             'email_verified_at' => null,
         ]);

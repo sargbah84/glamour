@@ -35,7 +35,7 @@ class CreateUserTest extends TestCase
 
         $response = $this->post('/admin/auth/user');
 
-        $response->assertSessionHasErrors(['type', 'name', 'email', 'password']);
+        $response->assertSessionHasErrors(['type', 'firstname', 'lastname', 'email', 'password']);
     }
 
     /** @test */
@@ -61,13 +61,14 @@ class CreateUserTest extends TestCase
 
         $response = $this->post('/admin/auth/user', [
             'type' => User::TYPE_ADMIN,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'OC4Nzu270N!QBVi%U%qX',
             'password_confirmation' => 'OC4Nzu270N!QBVi%U%qX',
             'active' => '1',
             'roles' => [
-                Role::whereName(config('boilerplate.access.role.admin'))->first()->id,
+                Role::whereName(config('global.access.role.admin'))->first()->id,
             ],
         ]);
 
@@ -75,14 +76,15 @@ class CreateUserTest extends TestCase
             'users',
             [
                 'type' => User::TYPE_ADMIN,
-                'name' => 'John Doe',
+                'firstname' => 'John',
+                'lastname' => 'Doe',
                 'email' => 'john@example.com',
                 'active' => true,
             ]
         );
 
         $this->assertDatabaseHas('model_has_roles', [
-            'role_id' => Role::whereName(config('boilerplate.access.role.admin'))->first()->id,
+            'role_id' => Role::whereName(config('global.access.role.admin'))->first()->id,
             'model_type' => User::class,
             'model_id' => User::whereEmail('john@example.com')->first()->id,
         ]);
@@ -101,13 +103,14 @@ class CreateUserTest extends TestCase
 
         $response = $this->post('/admin/auth/user', [
             'type' => User::TYPE_ADMIN,
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'OC4Nzu270N!QBVi%U%qX',
             'password_confirmation' => 'OC4Nzu270N!QBVi%U%qX',
             'send_confirmation_email' => '1',
             'roles' => [
-                Role::whereName(config('boilerplate.access.role.admin'))->first()->id,
+                Role::whereName(config('global.access.role.admin'))->first()->id,
             ],
         ]);
 

@@ -39,7 +39,7 @@ class DeleteRoleTest extends TestCase
     {
         $this->loginAsAdmin();
 
-        $role = Role::whereName(config('boilerplate.access.role.admin'))->first();
+        $role = Role::whereName(config('global.access.role.admin'))->first();
 
         $response = $this->delete('/admin/auth/role/'.$role->id);
 

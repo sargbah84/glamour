@@ -23,7 +23,7 @@ class RegistrationTest extends TestCase
     {
         $response = $this->post('/register');
 
-        $response->assertSessionHasErrors(['name', 'email', 'password', 'terms']);
+        $response->assertSessionHasErrors(['firstname', 'lastname', 'email', 'password', 'terms']);
     }
 
     /** @test */
@@ -32,7 +32,8 @@ class RegistrationTest extends TestCase
         User::factory()->create(['email' => 'john@example.com']);
 
         $response = $this->post('/register', [
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
@@ -45,7 +46,8 @@ class RegistrationTest extends TestCase
     public function password_must_be_confirmed()
     {
         $response = $this->post('/register', [
-            'name' => 'John Doe',
+            'first' => 'John',
+            'last' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'password',
         ]);
@@ -57,7 +59,8 @@ class RegistrationTest extends TestCase
     public function passwords_must_be_equivalent()
     {
         $response = $this->post('/register', [
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'password',
             'password_confirmation' => 'not_the_same',
@@ -69,7 +72,7 @@ class RegistrationTest extends TestCase
     /** @test */
     public function user_registration_can_be_disabled()
     {
-        config(['boilerplate.access.user.registration' => false]);
+        config(['global.access.user.registration' => false]);
 
         $this->get('/register')->assertStatus(404);
     }
@@ -78,7 +81,8 @@ class RegistrationTest extends TestCase
     public function a_user_can_register_an_account()
     {
         $this->post('/register', [
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'OC4Nzu270N!QBVi%U%qX',
             'password_confirmation' => 'OC4Nzu270N!QBVi%U%qX',
@@ -97,7 +101,8 @@ class RegistrationTest extends TestCase
     public function a_user_cant_register_an_account_if_they_dont_accept_the_terms()
     {
         $response = $this->post('/register', [
-            'name' => 'John Doe',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
             'email' => 'john@example.com',
             'password' => 'OC4Nzu270N!QBVi%U%qX',
             'password_confirmation' => 'OC4Nzu270N!QBVi%U%qX',
