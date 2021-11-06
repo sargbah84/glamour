@@ -174,7 +174,7 @@ class UpdateUserTest extends TestCase
     {
         $this->actingAs(User::factory()->admin()->create());
 
-        $user = User::factory()->admin()->create(['name' => 'John Doe']);
+        $user = User::factory()->admin()->create(['firstname' => 'John', 'lastname' => 'Doe']);
 
         $response = $this->patch("/admin/auth/user/{$user->id}", [
             'type' => User::TYPE_USER,
