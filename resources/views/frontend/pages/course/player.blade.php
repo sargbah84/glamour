@@ -8,7 +8,7 @@
             <div class="col-md-8">
                 <div class="clearfix">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/256470214?h=0a6898a592" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="embed-responsive-item" src="{{ $video_url ?? 'https://player.vimeo.com/video/256470214?h=0a6898a592' }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
 
@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-md-2 text-center">
                         @if($lesson->next())
-                            <a href="{{ url($lesson->nextUrl()) }}" class="btn btn-light btn-block">Next &rarr;</a>
+                            <a href="{{ url('courses/lesson/'. $lesson->next()->slug) }}" class="btn btn-light btn-block">Next &rarr;</a>
                         @else
                             <a href="#" class="btn btn-light btn-block disabled">Finish</a>
                         @endif
@@ -93,10 +93,12 @@
 
                 player.on('ended', function(data) {
                     console.log('Video has ended');
+                    @if($lesson->next())
                     setTimeout(function() {
                         // redirect to next lesson
-                        window.location.href = '{{ url($lesson->nextUrl()) }}';
+                        window.location.href = '{{ url("courses/lesson/". $lesson->next()->slug) }}';
                     }, 1000);
+                    @endif
 
                     $.get('{{ url("/api/lesson/" . $lesson->id ."/store") }}/?watched='+data.seconds, function(resp){
                         console.log(resp);

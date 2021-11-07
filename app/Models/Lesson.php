@@ -77,7 +77,7 @@ class Lesson extends Model
 
     public function nextUrl()
     {
-        return url('/courses/lesson/' . $this->next()->slug);
+        return url('/courses/lesson/' . $this->next());
     }
 
 }

@@ -44,13 +44,12 @@ class CourseController extends Controller
 
     public function time($id)
     {
-        UserLesson::create(
-            [
+        UserLesson::create([
                 'user_id' => auth()->id(),
                 'lesson_id' => $id,
                 'watched' => $this->request->input('watched'),
-            ]
-        );
+            ]);
+            
         return response()->json(['time' => time()]);
     }
 

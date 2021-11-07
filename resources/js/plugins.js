@@ -114,12 +114,14 @@ $(function () {
             cancelButtonText: 'Cancel',
             icon: 'warning'
         }).then((result) => {
-            const endpoint = $(this).attr('href');
-            axios.post(endpoint).then((response)=>{
-                    window.location.href = response.data.redirect;
-                }).catch((error)=>{
-                    console.log(error.response.data)
-                });
+            if (result.isConfirmed) {
+                const endpoint = $(this).attr('href');
+                axios.post(endpoint).then((response)=>{
+                        window.location.href = response.data.redirect;
+                    }).catch((error)=>{
+                        console.log(error.response.data)
+                    });
+                }
         });
     });
 
