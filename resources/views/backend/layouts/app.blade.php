@@ -18,7 +18,7 @@
     <meta name="theme-color" content="#ffffff">
 
     @stack('before-styles')
-    <link href="{{ url('css/backend.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
     <livewire:styles />
     @stack('after-styles')
 </head>
@@ -48,9 +48,9 @@
     @yield('modals')
 
     @stack('before-scripts')
-    <script src="{{ url('js/manifest.js') }}"></script>
-    <script src="{{ url('js/vendor.js') }}"></script>
-    <script src="{{ url('js/backend.js') }}?v={{ time() }}"></script>
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}"></script>
+    <script src="{{ mix('js/backend.js') }}?v={{ time() }}"></script>
     <livewire:scripts />
     @stack('after-scripts')
 </body>
