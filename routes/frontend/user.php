@@ -17,7 +17,14 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires']], fu
                 ->push(__('My Account'), route('frontend.user.account'));
         });
 
-        /*Route::get('courses', [AccountController::class, 'courses'])
+    Route::get('account/plan', [AccountController::class, 'plan'])
+        ->name('account.plan')
+        ->breadcrumbs(function (Trail $trail) {
+            $trail->parent('frontend.user.account')
+                ->push(__('My Plan'), route('frontend.user.account.plan'));
+        });
+
+    /*Route::get('courses', [AccountController::class, 'courses'])
         ->middleware('is_user')
         ->name('courses')
         ->breadcrumbs(function (Trail $trail) {

@@ -94,10 +94,10 @@
                 player.on('ended', function(data) {
                     console.log('Video has ended');
                     @if($lesson->next())
-                    setTimeout(function() {
-                        // redirect to next lesson
-                        window.location.href = '{{ url("courses/lesson/". $lesson->next()->slug) }}';
-                    }, 1000);
+                        setTimeout(function() {
+                            // redirect to next lesson
+                            window.location.href = '{{ url("courses/lesson/". $lesson->next()->slug) }}';
+                        }, 1000);
                     @endif
 
                     $.get('{{ url("/api/lesson/" . $lesson->id ."/store") }}/?watched='+data.seconds, function(resp){

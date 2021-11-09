@@ -27,18 +27,21 @@
             <th>@lang('Account Created')</th>
             <td>@displayDate($logged_in_user->created_at) ({{ $logged_in_user->created_at->diffForHumans() }})</td>
         </tr>
+        @if($logged_in_user->isUser())
+            <tr>
+                <th>@lang('Subscription')</th>
+                <td>22 days left - <a href="{{ route('frontend.user.account.plan') }}" class="text-danger">Pro Plan</a></td>
+            </tr>
 
-        <tr>
-            <th>@lang('Subscription')</th>
-            <td>22 days left</td>
-        </tr>
-
-        <tr>
-            <th>@lang('Status')</th>
-            <td><span class="badge badge-success p-2">Active</span></td>
-        </tr>
+            <tr>
+                <th>@lang('Status')</th>
+                <td><span class="badge badge-success p-2">Active</span></td>
+            </tr>
+        @endif
     </table>
-    <div class="clearfix w-75 my-4 mx-auto text-center">
-        <button submit="button" class="btn btn-danger btn-block disabled">Deactivate Account</button>
-    </div>
+    @if($logged_in_user->isUser())
+        <div class="clearfix w-75 my-4 mx-auto text-center">
+            <button submit="button" class="btn btn-danger btn-block disabled">Deactivate Account</button>
+        </div>
+    @endif
 </div><!--table-responsive-->

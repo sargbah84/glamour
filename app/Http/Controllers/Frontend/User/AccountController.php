@@ -19,4 +19,9 @@ class AccountController
     {
         return view('frontend.pages.user.courses');
     }
+
+    public function plan()
+    {
+        return view('frontend.pages.user.plan');
+    }
 }

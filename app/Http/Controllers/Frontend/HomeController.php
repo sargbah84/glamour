@@ -14,4 +14,9 @@ class HomeController
     {
         return view('frontend.pages.home');
     }
+
+    public function plans()
+    {
+        return view('frontend.pages.plans');
+    }
 }

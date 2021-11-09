@@ -3,8 +3,8 @@
 @section('title', __('Home'))
 
 @section('content')
-    <div class="container py-5">
-        <div class="row">
+    <div class="container py-5 animate__animated animate__fadeIn">
+        <div class="row justify-content-center">
             @foreach($courses as $course)
                 <div class="col-md-3">
                     <div class="card mb-3">

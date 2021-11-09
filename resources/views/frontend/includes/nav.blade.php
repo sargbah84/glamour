@@ -10,6 +10,24 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <x-utils.link
+                        :href="route('frontend.pages.courses')"
+                        :active="activeClass(Route::is('frontend.pages.courses'))"
+                        :text="__('Courses')"
+                        class="nav-link" />
+                </li>
+                <li class="nav-item">
+                    <x-utils.link
+                        :href="route('frontend.pages.plans')"
+                        :active="activeClass(Route::is('frontend.pages.plans'))"
+                        :text="__('Pricing')"
+                        class="nav-link" />
+                </li>
+
+            </ul>
+
             <ul class="navbar-nav ml-auto">
                 @if(config('global.locale.status') && count(config('global.locale.languages')) > 1)
                     <li class="nav-item dropdown">
@@ -67,8 +85,8 @@
                             @if ($logged_in_user->isUser())
                                 <x-utils.link
                                     :href="route('frontend.pages.courses')"
-                                    :active="activeClass(Route::is('frontend.pages.courses'))"
-                                    :text="__('Courses')"
+                                    :active="activeClass(Route::is('frontend.pages.courses.*'))"
+                                    :text="__('My Courses')"
                                     class="dropdown-item"/>
                             @endif
 

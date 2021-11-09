@@ -3,7 +3,7 @@
 @section('title', __('My Account'))
 
 @section('content')
-    <div class="container py-4">
+    <div class="container py-4 animate__animated animate__fadeIn">
         <div class="row justify-content-center">
             <div class="col-md-7">
 
