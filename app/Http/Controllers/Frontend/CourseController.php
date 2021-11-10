@@ -44,9 +44,12 @@ class CourseController extends Controller
 
     public function time($id)
     {
-        UserLesson::create([
+        UserLesson::updateOrCreate(
+            [
                 'user_id' => auth()->id(),
                 'lesson_id' => $id,
+            ],
+            [
                 'watched' => $this->request->input('watched'),
             ]);
             

@@ -24,4 +24,9 @@ class AccountController
     {
         return view('frontend.pages.user.plan');
     }
+
+    public function order()
+    {
+        return view('frontend.pages.user.order');
+    }
 }

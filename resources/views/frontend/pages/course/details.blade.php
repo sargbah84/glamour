@@ -3,7 +3,7 @@
 @section('title', __($course->name))
 
 @section('content')
-    <div class="container py-5 animate__animated animate__fadeIn">
+    <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="row">
@@ -15,8 +15,8 @@
                     <div class="col-md-8">
                         <h3 class="my-2">{{ $course->name }}</h3>
                         <p>{{ $course->description ?? "Some quick example text to build on the card title and make up the bulk of the card's content." }}</p>
-                        @if($course->lessons->first()->hasWatched(auth()->user()) > 0)
-                            <a href="{{ url('/courses/lesson/'. $course->lessons->first()->slug) }}" class="btn btn-primary">
+                        @if($course->lessons->first()->hasWatched(auth()->user()))
+                            <a href="{{ url('/courses/lesson/'. $course->lessons->first()->next()->slug) }}" class="btn btn-primary">
                                 Continue Watching
                             </a>
                         @else

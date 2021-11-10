@@ -9,7 +9,7 @@ use Tabuna\Breadcrumbs\Trail;
  * All route names are prefixed with 'frontend.'
  * These routes can not be hit if the user has not confirmed their email
  */
-Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires']], function () {
+Route::group(['as' => 'user.', 'middleware' => 'auth'], function () {
     Route::get('account', [AccountController::class, 'index'])
         ->name('account')
         ->breadcrumbs(function (Trail $trail) {
@@ -22,6 +22,13 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires']], fu
         ->breadcrumbs(function (Trail $trail) {
             $trail->parent('frontend.user.account')
                 ->push(__('My Plan'), route('frontend.user.account.plan'));
+        });
+
+    Route::get('account/order', [AccountController::class, 'order'])
+        ->name('account.order')
+        ->breadcrumbs(function (Trail $trail) {
+            $trail->parent('frontend.user.account')
+                ->push(__('Place Order'), route('frontend.user.account.order'));
         });
 
     /*Route::get('courses', [AccountController::class, 'courses'])

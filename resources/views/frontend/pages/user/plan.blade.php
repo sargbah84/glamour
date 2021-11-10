@@ -62,6 +62,12 @@
                             </div>
                         </form>
                     </div>
+                    <div class="clearfix w-75 mx-auto my-4">
+                        <a href="{{ url('account') }}" class="btn btn-light btn-block rounded">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            {{ __('Back to Account') }}
+                        </a>
+                    </div>
 
                 @endif
             </div><!--col-md-10-->

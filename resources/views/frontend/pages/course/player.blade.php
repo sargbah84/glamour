@@ -93,27 +93,29 @@
 
                 player.on('ended', function(data) {
                     console.log('Video has ended');
+                    
+                    $.get('{{ url("/api/lesson/" . $lesson->id ."/store") }}/?watched='+data.seconds, function(resp){
+                        console.log(resp);
+                    });
+
                     @if($lesson->next())
                         setTimeout(function() {
                             // redirect to next lesson
                             window.location.href = '{{ url("courses/lesson/". $lesson->next()->slug) }}';
                         }, 1000);
                     @endif
-
-                    $.get('{{ url("/api/lesson/" . $lesson->id ."/store") }}/?watched='+data.seconds, function(resp){
-                        console.log(resp);
-                    });
                 });
 
                 // browser exit
-                window.onbeforeunload = function() {
+                /*window.onbeforeunload = function() {
                     let time = player.getCurrentTime();
                     let duration = player.getDuration();
+                    console.log(time);
                     // let progress = time / duration * 100;
-                    $.get('{{ url("/api/lesson/" . $lesson->id ."/store") }}/?watched='+data.seconds, function(resp){
+                    $.get('{{ url("/api/lesson/" . $lesson->id ."/store") }}/?watched='+time, function(resp){
                         console.log(resp);
                     });
-                };
+                };*/
             });
         </script>
     @endif

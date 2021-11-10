@@ -17,7 +17,7 @@ Route::get('/', [HomeController::class, 'index'])
         $trail->push(__('Home'), route('frontend.index'));
     });
 
-Route::group(['middleware' => ['auth', 'password.expires', config('global.access.middleware.verified')]], function () {
+Route::group(['middleware' => ['auth', config('global.access.middleware.verified')]], function () {
 
     Route::group(['prefix' => 'courses'], function(){
 
@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth', 'password.expires', config('global.access
 
     });
 
-});        
+});   
 
 Route::get('terms', [TermsController::class, 'index'])
     ->name('pages.terms')

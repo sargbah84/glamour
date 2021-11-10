@@ -14,7 +14,7 @@
                 <li class="nav-item">
                     <x-utils.link
                         :href="route('frontend.pages.courses')"
-                        :active="activeClass(Route::is('frontend.pages.courses'))"
+                        :active="activeClass(Route::is('frontend.pages.courses*'))"
                         :text="__('Courses')"
                         class="nav-link" />
                 </li>
@@ -85,14 +85,14 @@
                             @if ($logged_in_user->isUser())
                                 <x-utils.link
                                     :href="route('frontend.pages.courses')"
-                                    :active="activeClass(Route::is('frontend.pages.courses.*'))"
+                                    :active="activeClass(Route::is('frontend.pages.courses*'))"
                                     :text="__('My Courses')"
                                     class="dropdown-item"/>
                             @endif
 
                             <x-utils.link
                                 :href="route('frontend.user.account')"
-                                :active="activeClass(Route::is('frontend.user.account'))"
+                                :active="activeClass(Route::is('frontend.user.account*'))"
                                 :text="__('My Account')"
                                 class="dropdown-item" />
 
