@@ -125,6 +125,20 @@ $(function () {
         });
     });
 
+    $("#revealPass").on('click', function(){
+        var passwordField = $(".passwordField");
+        var passwordFieldType = passwordField.attr('type') == 'password' ? true : false;
+
+        // Check the checkbox state
+        if(passwordFieldType){
+            passwordField.attr("type","text");
+            $("#revealPass span").text('Hide');
+        }else{
+            passwordField.attr("type","password");
+            $(" #revealPass span").text('Show');
+        }
+    });
+
     // Remember tab on page load
     $('a[data-toggle="tab"], a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
         let hash = $(e.target).attr('href');

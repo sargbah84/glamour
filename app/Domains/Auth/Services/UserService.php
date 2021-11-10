@@ -120,7 +120,7 @@ class UserService extends BaseService
                 'lastname' => $data['lastname'],
                 'email' => $data['email'],
                 'password' => $data['password'],
-                'email_verified_at' => isset($data['email_verified']) && $data['email_verified'] === '1' ? now() : null,
+                'email_verified' => (array_key_exists('email_verified', $data) && $data['email_verified'] === '1') ? $data['email_verified'] : null,
                 'active' => isset($data['active']) && $data['active'] === '1',
             ]);
 
@@ -330,7 +330,7 @@ class UserService extends BaseService
             'password' => $data['password'] ?? null,
             'provider' => $data['provider'] ?? null,
             'provider_id' => $data['provider_id'] ?? null,
-            'email_verified_at' => $data['email_verified'] === '1' ? now() : null,
+            'email_verified_at' => (array_key_exists('email_verified', $data) && $data['email_verified'] === '1') ? now() : null,
             'active' => $data['active'] ?? true,
         ]);
     }

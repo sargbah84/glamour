@@ -41,7 +41,7 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">@lang('Password')</label>
 
                                 <div class="col-md-6">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password') }}" maxlength="100" required autocomplete="new-password" />
+                                    <input type="password" name="password" id="password" class="form-control passwordField" placeholder="{{ __('Password') }}" maxlength="100" required autocomplete="new-password" />
                                 </div>
                             </div><!--form-group-->
 
@@ -49,7 +49,23 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">@lang('Password Confirmation')</label>
 
                                 <div class="col-md-6">
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Password Confirmation') }}" maxlength="100" required autocomplete="new-password" />
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control passwordField" placeholder="{{ __('Password Confirmation') }}" maxlength="100" required autocomplete="new-password" />
+                                    <small class="form-text text-info ml-2 text-decoration-underline cursor-pointer" id="revealPass"><span>@lang('Show')</span> @lang('Password')</small>
+                                </div>
+                            </div><!--form-group-->
+
+                            <div class="row">
+                                <div class="col-md-6 offset-md-4">
+                                    <div class="alert alert-primary" role="alert">
+                                        Please make sure that your password meet these requirements: 
+                                        <ul>
+                                            <li>Password must be at least 8 characters long</li>
+                                            <li>Contain at least one uppercase letter</li>
+                                            <li>Contain at least one lowercase letter</li> 
+                                            <li>Contains at least a number</li> 
+                                            <li>And one special characters such as $ # @ * & %.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div><!--form-group-->
 

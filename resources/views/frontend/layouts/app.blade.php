@@ -21,7 +21,7 @@
     @stack('before-styles')
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="{{ mix('css/frontend.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/frontend.css') }}?v={{ time() }}" rel="stylesheet">
     <livewire:styles />
     @stack('after-styles')
 </head>
@@ -42,7 +42,7 @@
     @stack('before-scripts')
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/frontend.js') }}"></script>
+    <script src="{{ mix('js/frontend.js') }}?v={{ time() }}"></script>
     <livewire:scripts />
     @stack('after-scripts')
 </body>

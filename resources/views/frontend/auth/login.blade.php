@@ -25,7 +25,8 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">@lang('Password')</label>
 
                                 <div class="col-md-6">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password') }}" maxlength="100" required autocomplete="current-password" />
+                                    <input type="password" name="password" id="password" class="form-control passwordField" placeholder="{{ __('Password') }}" maxlength="100" required autocomplete="current-password" />
+                                    <small class="form-text text-info ml-2 text-decoration-underline cursor-pointer" id="revealPass"><span>@lang('Show')</span> @lang('Password')</small>
                                 </div>
                             </div><!--form-group-->
 
