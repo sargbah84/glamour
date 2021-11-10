@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('Create Lesson'))
+@section('title', _('Create Lesson'))
 
 @section('content')
     <div class="card">
@@ -19,24 +19,27 @@
                             <div class="form-group">
                                 <select name="module_id" class="form-control">
                                     @foreach(\App\Models\Module::all() as $module)
-                                        <option value="{{ $module->id }}">{{ $module->name }}</option>
+                                        <option value="{{ $module->id }}" {{ (old('module_id') == $module->id) ? 'selected' : '' }}>{{ $module->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         @endif
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Lesson Name">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="description" class="form-control" placeholder="Lesson Details" rows="10"></textarea>
+                            <input type="text" name="name" class="form-control" placeholder="@lang('Lesson Name')" value="{{ old('name') }}">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="video_url" class="form-control" placeholder="Video Url" required>
+                            <input type="text" name="video_url" class="form-control" placeholder="Video Url" value="{{ old('video_url') }}" required>
                         </div>
 
-                        <input type="hidden" name="duration" required>
+                        <div class="form-group">
+                            <textarea name="description" class="form-control" placeholder="@lang('Lesson Details')" rows="10">{{ old('description') }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="duration" class="form-control" placeholder="Video Duration" value="{{ old('duration') }}" required>
+                        </div>
 
                         {{--<div class="form-group">
                             <input type="file" name="image">
@@ -45,8 +48,8 @@
                         <iframe src="" frameborder="0" style="display:none"></iframe>
 
                         <div class="clearfix">
-                            <button type="submit" class="btn btn-primary btn-block">Create</button>
-                            <a href="{{ url()->previous() }}" class="btn btn-link btn-block">Cancel Edit</a>
+                            <button type="submit" class="btn btn-primary btn-block">@lang('Create')</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-link btn-block">@lang('Cancel Edit')</a>
                         </div>
 
                     </form>

@@ -6,7 +6,7 @@
     <x-backend.card>
         <x-slot name="header">
             @lang('Courses')
-            <a href="{{ url('admin/courses/create') }}" class="btn btn-light float-right">Create Course</a>
+            <a href="{{ url('admin/courses/create') }}" class="btn btn-light float-right">@lang('Create Course')</a>
         </x-slot>
 
         <x-slot name="body">
@@ -37,8 +37,4 @@
             </table>
         </x-slot>
     </x-backend.card>
-@endsection
-
-@section('modals')
-    @include('backend.pages.courses.modals.new.course')
 @endsection

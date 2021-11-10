@@ -1,12 +1,12 @@
 @extends('backend.layouts.app')
 
-@section('title', __('Create Module'))
+@section('title', _('Create Module'))
 
 @section('content')
     <div class="card">
         <div class="card-header">
             @lang('Create Module')
-            <a href="{{ url('admin/courses/module/delete/'. $module->id) }}" class="btn btn-danger {{ ($module->lessons->count() > 0) ? 'disabled' : '' }} delete-item float-right">Delete Couse</a>
+            <a href="{{ url('admin/courses/module/delete/'. $module->id) }}" class="btn btn-danger {{ ($module->lessons->count() > 0) ? 'disabled' : '' }} delete-item float-right">@lang('Delete Module')</a>
         </div>
         <div class="card-body">
             <div class="row justify-content-center">
@@ -35,8 +35,8 @@
                         </div>--}}
 
                         <div class="clearfix">
-                            <button type="submit" class="btn btn-primary btn-block">Update Module</button>
-                            <a href="{{ url('admin/courses/details/' . $module->course->slug) }}" class="btn btn-link btn-block">Cancel Edit</a>
+                            <button type="submit" class="btn btn-primary btn-block">@lang('Update Module')</button>
+                            <a href="{{ url('admin/courses/details/' . $module->course->slug) }}" class="btn btn-link btn-block">@lang('Cancel Edit')</a>
                         </div>
 
                     </form>

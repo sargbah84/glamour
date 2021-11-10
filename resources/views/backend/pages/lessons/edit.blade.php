@@ -1,12 +1,12 @@
 @extends('backend.layouts.app')
 
-@section('title', __('Update Lesson'))
+@section('title', _('Update Lesson'))
 
 @section('content')
     <div class="card">
         <div class="card-header">
             @lang('Update Lesson')
-            <a href="{{ url('admin/courses/lesson/delete/'. $lesson->id) }}" class="btn btn-danger delete-item float-right">Delete Couse</a>
+            <a href="{{ url('admin/courses/lesson/delete/'. $lesson->id) }}" class="btn btn-danger delete-item float-right">@lang('Delete Course')</a>
         </div>
         <div class="card-body">
             <div class="row justify-content-center">
@@ -24,23 +24,28 @@
                         <div class="form-group">
                             <input type="text" name="name" class="form-control" placeholder="Lesson Name" value="{{ $lesson->name }}">
                         </div>
-                        <div class="form-group">
-                            <textarea name="description" class="form-control" placeholder="Lesson Details" rows="10">{{ $lesson->description }}</textarea>
-                        </div>
 
                         <div class="form-group">
                             <input type="text" name="video_url" class="form-control" placeholder="Video Url" value="{{ $lesson->video_url }}" required>
                         </div>
 
-                        <input type="hidden" name="duration" value="{{ $lesson->duration }}" required>
+                        <div class="form-group">
+                            <textarea name="description" class="form-control" placeholder="Lesson Details" rows="10">{{ $lesson->description }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="duration" class="form-control" placeholder="Duration" value="{{ $lesson->duration }}" required>
+                        </div>
+
+                        <iframe src="" frameborder="0" style="display:none"></iframe>
 
                         {{--<div class="form-group">
                             <input type="file" name="image">
                         </div>--}}
 
                         <div class="clearfix">
-                            <button type="submit" class="btn btn-primary btn-block">Update Lesson</button>
-                            <a href="{{ url('admin/courses/details/' . $module->course->slug) }}" class="btn btn-link btn-block">Cancel Edit</a>
+                            <button type="submit" class="btn btn-primary btn-block">@lang('Update Lesson')</button>
+                            <a href="{{ url('admin/courses/details/' . $module->course->slug) }}" class="btn btn-link btn-block">@lang('Cancel Edit')</a>
                         </div>
 
                     </form>
