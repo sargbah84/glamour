@@ -32,21 +32,21 @@
                     </table>
                 </div>
                 <div class="clearfix bg-white p-4 shadow-sm" id="card-wrapper">
-                    <form action="#">
+                    <form action="#" class="validate" method="POST">
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Name on Card">
+                            <input type="text" name="name" class="form-control" placeholder="Name on Card" required>
                         </div>
                         <div class="form-group">
                             <h5>Payment Method</h5>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="card" class="form-control" placeholder="Card Number">
+                            <input type="text" name="card" class="form-control" placeholder="Card Number" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="cvc" class="form-control" placeholder="CVC">
+                            <input type="text" name="cvc" class="form-control" placeholder="CVC" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="exp" class="form-control" placeholder="MM/YYYY">
+                            <input type="text" name="exp" class="form-control" placeholder="MM/YYYY" required>
                         </div>
                         <div class="form-group mb-0">
                             <button type="submit" class="btn btn-primary btn-block rounded">Place Order</button>

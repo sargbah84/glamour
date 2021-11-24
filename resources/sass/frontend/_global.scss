@@ -17,3 +17,21 @@
 .text-decoration-underline:hover {
     text-decoration: underline !important;
 }
+
+.navbar-nav .nav-link.featured-link {
+    border: solid 1px rgba(255, 255, 255, 0.5);
+    border-radius: 35px;
+}
+
+@media (min-width: 768px){
+    .navbar-expand-md .navbar-nav .nav-link.featured-link {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-nav .nav-link.featured-link {
+        text-align: center;
+    }
+}

@@ -80,4 +80,25 @@ class Lesson extends Model
         return url('/courses/lesson/' . $this->next());
     }
 
+    public function video_id()
+    {
+        $url = $this->video_url ?? 'https://vimeo.com/256470214';
+        $parse = parse_url( $url );
+
+        if($parse['host'] == 'vimeo.com'){
+            $videoId = ltrim($parse['path'], '/');
+        } elseif($parse['host'] == 'player.vimeo.com'){
+            $path = ltrim($parse['path'], '/');
+            $arr = explode('/', $path);
+            $videoId = end($arr);
+        }
+
+        return $videoId;
+    }
+
+    public function video_image()
+    {
+        return 'https://vumbnail.com/'. $this->video_id() .'.jpg';
+    }
+
 }

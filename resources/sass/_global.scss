@@ -4,3 +4,14 @@
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+
+.validate {
+    .form-control {
+        &.error {
+            border-color: #dc3545 !important;
+        }
+    }
+    label.error {
+        display: none !important;
+    }
+}

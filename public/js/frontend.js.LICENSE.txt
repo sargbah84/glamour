@@ -3,3 +3,12 @@
  * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
+
+/*!
+ * jQuery Validation Plugin v1.19.3
+ *
+ * https://jqueryvalidation.org/
+ *
+ * Copyright (c) 2021 Jörn Zaefferer
+ * Released under the MIT license
+ */

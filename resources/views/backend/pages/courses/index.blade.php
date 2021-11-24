@@ -23,7 +23,7 @@
                 @foreach($courses as $course)
                     <tbody>
                         <tr>
-                            <td>{{ $course->id }}</td>
+                            <td><img src="{{ $course->preview() }}" width="40px" alt=""></td>
                             <td>{{ $course->name }}</td>
                             <td>{{ $course->lessons->count() }}</td>
                             <td>{{ $course->created_at }}</td>

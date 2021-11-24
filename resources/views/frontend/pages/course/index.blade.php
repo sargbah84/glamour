@@ -8,7 +8,9 @@
             @foreach($courses as $course)
                 <div class="col-md-3">
                     <div class="card mb-3">
-                        <a href="{{ ($course->lessons->count()) ? url('/courses/' . $course->slug) : '#' }}"><img src="https://via.placeholder.com/640x450" class="card-img-top" alt="..."></a>
+                        <a href="{{ ($course->lessons->count()) ? url('/courses/' . $course->slug) : '#' }}">
+                            <img src="{{ $course->preview() }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <a href="{{ ($course->lessons->count()) ? url('/courses/' . $course->slug) : '#' }}" class="card-title h5 text-dark">{{ $course->name }}</a>
                             <p class="card-text">{{ $course->description }}</p>

@@ -48,6 +48,11 @@ class CoursesController extends Controller
         $course->code = str_random(10);
         $course->save();
 
+        // If tags input is not empty, store tags in database
+        if($this->request->filled('tags')){
+            $course->syncTagsNames($this->request->input('tags')); 
+        }
+
         return redirect()->route('admin.courses')->withFlashSuccess(__('Course created successfully'));
     }
 
@@ -71,6 +76,11 @@ class CoursesController extends Controller
         $course->code = $course->code ?? str_random(10);
         $course->save();
 
+        // If tags input is not empty, store tags in database
+        if($this->request->filled('tags')){
+            $course->syncTagsNames($this->request->input('tags')); 
+        }
+
         return redirect()->route('admin.courses')->withFlashSuccess(__('Course updated successfully'));
     }
 
@@ -79,6 +89,7 @@ class CoursesController extends Controller
         $course = Course::find($id);
         $course->modules()->delete();
         $course->lessons()->delete();
+        $course->detachTags();
         $course->delete();
 
         return response()->json([

@@ -10,14 +10,19 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <form action="{{ url('admin/courses/store') }}" method="POST">
+                    <form action="{{ url('admin/courses/store') }}" class="validate" method="POST">
                         @csrf
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Course Name" value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control" placeholder="Course Name" value="{{ old('name') }}" required>
                         </div>
                         <div class="form-group">
                             <textarea name="description" class="form-control" placeholder="Course Details" rows="10">{{ old('description') }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="tags" id="tags" rows="2" placeholder="Eg. beauty, hair dressing, etc."></textarea>
+                            <span class="help-text">Add tags seperating by common. Eg. beauty, hair dressing, etc</span>
                         </div>
 
                         {{--<div class="form-group">

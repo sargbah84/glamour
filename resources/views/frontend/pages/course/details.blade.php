@@ -3,13 +3,13 @@
 @section('title', __($course->name))
 
 @section('content')
-    <div class="container py-5">
+    <div class="container py-5 animate__animated animate__fadeIn">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-4">
                         <a href="{{ url('/courses/' . $course->slug) }}">
-                            <img src="https://via.placeholder.com/640x460" class="img-fluid" alt="">
+                            <img src="{{ $course->preview() }}" class="img-fluid" alt="">
                         </a>
                     </div>
                     <div class="col-md-8">
@@ -37,6 +37,7 @@
                                 <div class="list-group">
                                     @foreach($module->lessons as $lesson)
                                         <a href="{{ url('/courses/lesson/' . $lesson->slug) }}" class="list-group-item list-group-item-action">
+                                            <img src="{{ $lesson->video_image() }}" width="70px" alt=""> 
                                             {{ $lesson->name }}
                                             @if($lesson->isWatched(auth()->user()))    
                                                 <i class="fas fa-check text-primary float-right" style="font-size: 16px;"></i>

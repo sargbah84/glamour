@@ -10,14 +10,19 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <form action="{{ url('admin/courses/update/'. $course->id) }}" method="POST">
+                    <form action="{{ url('admin/courses/update/'. $course->id) }}" class="validate" method="POST">
                         @csrf
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="@lang('Course Name')" value="{{ $course->name }}">
+                            <input type="text" name="name" class="form-control" placeholder="@lang('Course Name')" value="{{ $course->name }}" required>
                         </div>
                         <div class="form-group">
                             <textarea name="description" class="form-control" placeholder="@lang('Course Details')" rows="10">{{ $course->description }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="tags" id="tags" class="form-control" rows="2" placeholder="Eg. beauty, hair dressing, etc.">{{ $course->tagNames() }}</textarea>
+                            <small class="help-text">Add tags seperating by common. Eg. beauty, hair dressing, etc</small>
                         </div>
 
                         {{--<div class="form-group">

@@ -10,14 +10,14 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <form action="{{ url('admin/courses/lesson/store') }}" method="POST">
+                    <form action="{{ url('admin/courses/lesson/store') }}" class="validate" method="POST">
                         @csrf
 
                         @if(request()->filled('id'))
                             <input type="hidden" name="module_id" value="{{ request()->get('id')}}">
                         @else
                             <div class="form-group">
-                                <select name="module_id" class="form-control">
+                                <select name="module_id" class="form-control" required>
                                     @foreach(\App\Models\Module::all() as $module)
                                         <option value="{{ $module->id }}" {{ (old('module_id') == $module->id) ? 'selected' : '' }}>{{ $module->name }}</option>
                                     @endforeach
@@ -26,7 +26,7 @@
                         @endif
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="@lang('Lesson Name')" value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control" placeholder="@lang('Lesson Name')" value="{{ old('name') }}" required>
                         </div>
 
                         <div class="form-group">
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="form-group">
-                            <textarea name="description" class="form-control" placeholder="@lang('Lesson Details')" rows="10">{{ old('description') }}</textarea>
+                            <textarea name="description" class="form-control" placeholder="@lang('Lesson Details')" rows="10" required>{{ old('description') }}</textarea>
                         </div>
 
                         <div class="form-group">

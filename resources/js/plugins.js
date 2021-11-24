@@ -139,6 +139,12 @@ $(function () {
         }
     });
 
+    $(".validate").validate({
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+
     // Remember tab on page load
     $('a[data-toggle="tab"], a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
         let hash = $(e.target).attr('href');

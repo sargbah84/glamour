@@ -5,6 +5,15 @@
   */
 
 /*!
+ * jQuery Validation Plugin v1.19.3
+ *
+ * https://jqueryvalidation.org/
+ *
+ * Copyright (c) 2021 Jörn Zaefferer
+ * Released under the MIT license
+ */
+
+/*!
  * perfect-scrollbar v1.5.2
  * Copyright 2021 Hyunje Jun, MDBootstrap and Contributors
  * Licensed under MIT

@@ -49,7 +49,7 @@
                             :href="route('frontend.auth.login')"
                             :active="activeClass(Route::is('frontend.auth.login'))"
                             :text="__('My Account')"
-                            class="nav-link" />
+                            class="nav-link featured-link" />
                     </li>
                 @else
                     <li class="nav-item dropdown">

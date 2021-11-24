@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <form action="{{ url('admin/courses/lesson/update/'. $lesson->id) }}" method="POST">
+                    <form action="{{ url('admin/courses/lesson/update/'. $lesson->id) }}" class="validate" method="POST">
                         @csrf
                         <div class="form-group">
                             <select name="module_id" class="form-control">
@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Lesson Name" value="{{ $lesson->name }}">
+                            <input type="text" name="name" class="form-control" placeholder="Lesson Name" value="{{ $lesson->name }}" required>
                         </div>
 
                         <div class="form-group">
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group">
-                            <textarea name="description" class="form-control" placeholder="Lesson Details" rows="10">{{ $lesson->description }}</textarea>
+                            <textarea name="description" class="form-control" placeholder="Lesson Details" rows="10" required>{{ $lesson->description }}</textarea>
                         </div>
 
                         <div class="form-group">

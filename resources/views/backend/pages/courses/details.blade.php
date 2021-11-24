@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <a href="{{ url('admin/courses/edit/'. $course->id) }}">
-                                <img src="https://via.placeholder.com/640x460" class="img-fluid" alt="">
+                                <img src="{{ $course->preview() }}" class="img-fluid" alt="">
                             </a>
                         </div>
                         <div class="col-md-8">

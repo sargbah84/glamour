@@ -11,12 +11,12 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <form action="{{ url('admin/courses/module/update/' . $module->id) }}" method="POST">
+                    <form action="{{ url('admin/courses/module/update/' . $module->id) }}" class="validate" method="POST">
                     
                         @csrf
 
                         <div class="form-group">
-                            <select name="course_id" class="form-control">
+                            <select name="course_id" class="form-control" required>
                                 @foreach(\App\Models\Course::all() as $course)
                                     <option value="{{ $course->id }}" {{ ($module->course->id == $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>
                                 @endforeach
@@ -24,10 +24,10 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Module Name" value="{{ $module->name }}">
+                            <input type="text" name="name" class="form-control" placeholder="Module Name" value="{{ $module->name }}" required>
                         </div>
                         <div class="form-group">
-                            <textarea name="description" class="form-control" placeholder="Module Details" rows="10">{{ $module->description }}</textarea>
+                            <textarea name="description" class="form-control" placeholder="Module Details" rows="10" required>{{ $module->description }}</textarea>
                         </div>
 
                         {{--<div class="form-group">

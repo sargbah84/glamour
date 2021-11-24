@@ -3,9 +3,9 @@
 @section('title', __($lesson->name))
 
 @section('content')
-    <div class="container py-5">
+    <div class="container py-5 animate__animated animate__fadeIn">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="clearfix">
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="{{ $lesson->video_url ?? 'https://player.vimeo.com/video/256470214?h=0a6898a592' }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
@@ -37,6 +37,7 @@
                                 <div class="list-group">
                                     @foreach($module->lessons as $lessonb)
                                         <a href="{{ url('/courses/lesson/' . $lessonb->slug) }}" class="list-group-item list-group-item-action {{ ($lesson->id == $lessonb->id || $lessonb->isWatched(auth()->user())) ? 'text-primary' : '' }}">
+                                            <img src="{{ $lesson->video_image() }}" width="70px" alt=""> 
                                             {{ $lessonb->name }} 
                                         @if($lessonb->isWatched(auth()->user()))    
                                             <i class="fas fa-check text-primary float-right" style="font-size: 16px;"></i>

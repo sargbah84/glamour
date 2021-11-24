@@ -17,7 +17,7 @@
                             <input type="hidden" name="course_id" value="{{ request()->id }}">
                         @else
                             <div class="form-group">
-                                <select name="course_id" class="form-control">
+                                <select name="course_id" class="form-control" required>
                                     @foreach(\App\Models\Course::all() as $course)
                                         <option value="{{ $course->id }}" {{ (old('course_id') == $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>
                                     @endforeach
@@ -26,10 +26,10 @@
                         @endif
 
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Module Name" value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control" placeholder="Module Name" value="{{ old('name') }}" required>
                         </div>
                         <div class="form-group">
-                            <textarea name="description" class="form-control" placeholder="Module Details" rows="10">{{ old('description') }}</textarea>
+                            <textarea name="description" class="form-control" placeholder="Module Details" rows="10" required>{{ old('description') }}</textarea>
                         </div>
 
                         {{--<div class="form-group">
