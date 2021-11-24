@@ -14,7 +14,12 @@
                     </div>
                     <div class="col-md-8">
                         <h3 class="my-2">{{ $course->name }}</h3>
-                        <p>{{ $course->description ?? "Some quick example text to build on the card title and make up the bulk of the card's content." }}</p>
+                        <p class="mb-1">{{ $course->description ?? "Some quick example text to build on the card title and make up the bulk of the card's content." }}</p>
+                        <p>
+                            @foreach($course->tagsWithType('tags') as $tag)
+                                <a href="#{{ $tag->slug }}" class="mr-1">#{{ $tag->name }}</a>
+                            @endforeach
+                        </p>
                         @if($course->lessons->first()->hasWatched(auth()->user()))
                             <a href="{{ url('/courses/lesson/'. $course->lessons->first()->next()->slug) }}" class="btn btn-primary">
                                 Continue Watching
