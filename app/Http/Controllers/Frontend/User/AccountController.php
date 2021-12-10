@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
+use Rinvex\Subscriptions\Models\Plan;
+
 /**
  * Class AccountController.
  */
@@ -25,8 +27,8 @@ class AccountController
         return view('frontend.pages.user.plan');
     }
 
-    public function order()
+    public function order(Plan $plan)
     {
-        return view('frontend.pages.user.order');
+        return view('frontend.pages.user.order', compact('plan'));
     }
 }

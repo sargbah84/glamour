@@ -10,24 +10,24 @@
                     <h4 class="pb-2">Order Details</h4>
                     <table class="table clearfix w-100 mb-0">
                         <thead class="font-weight-bold">
-                            <tr>
-                                <th>
-                                    Item
-                                </th>
-                                <th class="text-right">
-                                    Amount
-                                </th>
-                            </tr>
+                        <tr>
+                            <th>
+                                Item
+                            </th>
+                            <th class="text-right">
+                                Amount
+                            </th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    {{ __('Pro Plan - Monthly Subscription') }}
-                                </td>
-                                <td class="text-right">
-                                    $00.00
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                {{$plan->name}} - {{__('Monthly Subscription')}}
+                            </td>
+                            <td class="text-right" rowspan="2">
+                                {{$plan->price}} {{$plan->currency}}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
