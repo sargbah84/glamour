@@ -24,30 +24,16 @@
                             <td>
                                 {{$plan->name}} - {{__('Monthly Subscription')}}
                             </td>
-                            <td class="text-right" rowspan="2">
+                            <td class="text-right">
                                 {{$plan->price}} {{$plan->currency}}
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="2" class="text-justify">{{$plan->description}}</td>
+                        </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="clearfix bg-white p-4 shadow-sm" id="card-wrapper">
                     <form action="#" class="validate" method="POST">
-                        <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Name on Card" required>
-                        </div>
-                        <div class="form-group">
-                            <h5>Payment Method</h5>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="card" class="form-control" placeholder="Card Number" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="cvc" class="form-control" placeholder="CVC" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="exp" class="form-control" placeholder="MM/YYYY" required>
-                        </div>
                         <div class="form-group mb-0">
                             <button type="submit" class="btn btn-primary btn-block rounded">Place Order</button>
                         </div>
