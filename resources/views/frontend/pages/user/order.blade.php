@@ -33,7 +33,9 @@
                         </tr>
                         </tbody>
                     </table>
-                    <form action="#" class="validate" method="POST">
+                    <form action="{{ route('frontend.user.account.order.pay',$plan->slug) }}" class="validate"
+                          method="POST">
+                        @csrf
                         <div class="form-group mb-0">
                             <button type="submit" class="btn btn-primary btn-block rounded">Place Order</button>
                         </div>

@@ -20,6 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Sanctum\HasApiTokens;
+use Rinvex\Subscriptions\Traits\HasSubscriptions;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -38,7 +39,8 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
         UserAttribute,
         UserMethod,
         UserRelationship,
-        UserScope;
+        UserScope,
+        HasSubscriptions;
 
     public const TYPE_ADMIN = 'admin';
     public const TYPE_USER = 'user';
@@ -115,7 +117,7 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
     {
         return $this->hasMany(UserLesson::class);
     }
-    
+
     public function watched()
     {
         return $this->whereHas('lessons', function($query) {

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
+use App\Payments\Models\PaymentsUniPay;
+use App\Payments\Processors\UniPayProcessor;
+use Auth;
+use Illuminate\Http\Request;
 use Rinvex\Subscriptions\Models\Plan;
 
 /**
@@ -30,5 +34,21 @@ class AccountController
     public function order(Plan $plan)
     {
         return view('frontend.pages.user.order', compact('plan'));
+    }
+
+    public function pay(Request $request, Plan $plan)
+    {
+        $transaction = PaymentsUniPay::create([
+            'user_id' => Auth::user()->id,
+            'plan_id' => $plan->id,
+            'price' => $plan->price,
+            'currency' => $plan->currency,
+            'status' => UniPayProcessor::$STATUS[1000]
+        ]);
+
+        return redirect(action('\App\Payments\Http\Controllers\PaymentsController@redirect', [
+            'provider' => 'unipay',
+            'order' => $transaction->id,
+        ]));
     }
 }

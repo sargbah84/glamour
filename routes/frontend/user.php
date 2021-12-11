@@ -31,6 +31,8 @@ Route::group(['as' => 'user.', 'middleware' => 'auth'], function () {
                 ->push(__('Place Order'), route('frontend.user.account.order', request()->route()->plan));
         });
 
+    Route::post('account/order/{plan:slug}', [AccountController::class, 'pay'])->name('account.order.pay');
+
     /*Route::get('courses', [AccountController::class, 'courses'])
         ->middleware('is_user')
         ->name('courses')
