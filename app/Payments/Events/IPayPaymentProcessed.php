@@ -14,15 +14,15 @@ class IPayPaymentProcessed
     /**
      * @var PaymentsIPay
      */
-    public PaymentsIPay $IPayTransaction;
+    public PaymentsIPay $transaction;
 
     /**
      * Create a new event instance.
      *
-     * @param PaymentsIPay $IPayTransaction
+     * @param PaymentsIPay $transaction
      */
-    public function __construct(PaymentsIPay $IPayTransaction)
+    public function __construct(PaymentsIPay $transaction)
     {
-        $this->IPayTransaction = $IPayTransaction;
+        $this->transaction = $transaction;
     }
 }

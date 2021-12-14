@@ -14,15 +14,15 @@ class UniPayPaymentProcessed
     /**
      * @var PaymentsUniPay
      */
-    public PaymentsUniPay $uniPayTransaction;
+    public PaymentsUniPay $transaction;
 
     /**
      * Create a new event instance.
      *
-     * @param PaymentsUniPay $uniPayTransaction
+     * @param PaymentsUniPay $transaction
      */
-    public function __construct(PaymentsUniPay $uniPayTransaction)
+    public function __construct(PaymentsUniPay $transaction)
     {
-        $this->uniPayTransaction = $uniPayTransaction;
+        $this->transaction = $transaction;
     }
 }
