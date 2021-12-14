@@ -3,10 +3,9 @@
 namespace App\Payments;
 
 use App\Payments\Contracts\Factory;
-use App\Payments\Providers\TBC;
-use App\Payments\Providers\TBCInstallment;
 use App\Payments\Providers\UniPay;
 use Illuminate\Support\Manager;
+use App\Payments\Providers\IPay;
 
 class PaymentsManager extends Manager implements Factory
 {
@@ -40,13 +39,13 @@ class PaymentsManager extends Manager implements Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return TBC
+     * @return IPay
      */
-    protected function createTBCDriver(): TBC
+    protected function createIPayDriver(): IPay
     {
-        $config = $this->app['config']['services.payments.tbc'] ?? [];
+        $config = $this->app['config']['payments.gateway.ipay'] ?? [];
 
-        return $this->buildProvider('App\Payments\Providers\TBC', $config);
+        return $this->buildProvider('App\Payments\Providers\IPay', $config);
     }
 
 
@@ -57,7 +56,7 @@ class PaymentsManager extends Manager implements Factory
      */
     protected function createUniPayDriver(): UniPay
     {
-        $config = $this->app['config']['services.payments.uniPay'] ?? [];
+        $config = $this->app['config']['payments.gateway.uniPay'] ?? [];
 
         return $this->buildProvider('App\Payments\Providers\UniPay', $config);
     }

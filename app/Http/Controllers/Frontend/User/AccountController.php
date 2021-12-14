@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
+use App\Payments\Models\PaymentsIPay;
 use App\Payments\Models\PaymentsUniPay;
 use App\Payments\Processors\UniPayProcessor;
 use Auth;
@@ -38,17 +39,33 @@ class AccountController
 
     public function pay(Request $request, Plan $plan)
     {
-        $transaction = PaymentsUniPay::create([
-            'user_id' => Auth::user()->id,
-            'plan_id' => $plan->id,
-            'price' => $plan->price,
-            'currency' => $plan->currency,
-            'status' => UniPayProcessor::$STATUS[1000]
-        ]);
+        if($request->input('payment_gateway') == 'unipay') {
+            $transaction = PaymentsUniPay::create([
+                'user_id' => Auth::user()->id,
+                'plan_id' => $plan->id,
+                'price' => $plan->price,
+                'currency' => $plan->currency,
+                'status' => UniPayProcessor::$STATUS[1000]
+            ]);
 
-        return redirect(action('\App\Payments\Http\Controllers\PaymentsController@redirect', [
-            'provider' => 'unipay',
-            'order' => $transaction->id,
-        ]));
+            return redirect(action('\App\Payments\Http\Controllers\PaymentsController@redirect', [
+                'provider' => 'unipay',
+                'order' => $transaction->id,
+            ]));
+
+        } else {
+            $transaction = PaymentsIPay::create([
+                'user_id' => Auth::user()->id,
+                'plan_id' => $plan->id,
+                'price' => $plan->price,
+                'currency' => $plan->currency,
+                'status' => UniPayProcessor::$STATUS[1000]
+            ]);
+
+            return redirect(action('\App\Payments\Http\Controllers\PaymentsController@redirect', [
+                'provider' => 'ipay',
+                'order' => $transaction->id,
+            ]));
+        }
     }
 }

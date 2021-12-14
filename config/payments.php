@@ -5,9 +5,9 @@ return [
 
     'gateways' => [
         'unipay' => [
-            'merchantId' => '',
-            'secretKey' => '',
+            'merchantId' => env('UNIPAY_MERCHANT_ID'),
+            'secretKey' => env('UNIPAY_SECRET_KEY'),
         ],
-        'bog',
+        'ipay' => [],
     ]
 ];

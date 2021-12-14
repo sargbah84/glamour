@@ -2,27 +2,27 @@
 
 namespace App\Payments\Events;
 
-use App\Payments\Models\PaymentsUniPay;
+use App\Payments\Models\PaymentsIPay;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UniPayPaymentProcessed
+class IPayPaymentProcessed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * @var PaymentsUniPay
+     * @var PaymentsIPay
      */
-    public PaymentsUniPay $uniPayTransaction;
+    public PaymentsIPay $IPayTransaction;
 
     /**
      * Create a new event instance.
      *
-     * @param PaymentsUniPay $uniPayTransaction
+     * @param PaymentsIPay $IPayTransaction
      */
-    public function __construct(PaymentsUniPay $uniPayTransaction)
+    public function __construct(PaymentsIPay $IPayTransaction)
     {
-        $this->uniPayTransaction = $uniPayTransaction;
+        $this->IPayTransaction = $IPayTransaction;
     }
 }
