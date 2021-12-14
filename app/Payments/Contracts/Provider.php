@@ -16,4 +16,6 @@ interface Provider
 
     public function callback(Request $request);
 
+    public function orderDetails($transaction);
+
 }

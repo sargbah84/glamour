@@ -130,4 +130,13 @@ abstract class AbstractProvider implements Provider
         throw new InvalidArgumentException('Driver Not Support Callback Processing.');
     }
 
+    /**
+     * @param $transaction
+     * @return mixed
+     */
+    public function orderDetails($transaction)
+    {
+        throw new InvalidArgumentException('Driver Not Support orderDetails Processing.');
+    }
+
 }

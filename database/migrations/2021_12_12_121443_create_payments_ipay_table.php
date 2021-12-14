@@ -27,6 +27,7 @@ class CreatePaymentsIpayTable extends Migration
             $table->string('transaction_pan')->nullable();
             $table->string('gc_transaction_id')->nullable();
             $table->string('status');
+            $table->boolean('is_recurring')->default(false);
             $table->timestamps();
         });
     }

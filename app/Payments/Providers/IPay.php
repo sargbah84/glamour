@@ -43,7 +43,11 @@ class IPay extends AbstractProvider implements Provider
             Bog::purchaseItem($transaction->plan->id, $transaction->plan->price * 1000, 1, $transaction->plan->description),
         ];
 
-        $response = Bog::checkout(Intent::Capture, $transaction->id, $units, $items);
+        if ($transaction->is_reccurent) {
+            $response = Bog::repeat($transaction->transaction_order_id, Intent::Capture, $transaction->id, $units, $items);
+        } else {
+            $response = Bog::checkout(Intent::Capture, $transaction->id, $units, $items);
+        }
 
 
         if (isset($response->status) && $response->status === CheckoutStatus::Created) {
@@ -75,6 +79,24 @@ class IPay extends AbstractProvider implements Provider
             }
         } else {
             abort(419);
+        }
+    }
+
+    public function orderDetails($transaction)
+    {
+        $transaction = PaymentsIPay::where('id', $transaction)->first();
+        $response = Bog::orderDetails($transaction->transaction_order_id);
+
+        $transaction->update([
+            'transaction_payment_id' => $response->ipay_payment_id,
+            'transaction_payment_method' => $response->payment_method,
+            'transaction_card_type' => $response->card_type,
+            'transaction_pan' => $response->pan,
+            'gc_transaction_id' => $response->transaction_id,
+            'status' => strtoupper($response->status),
+        ]);
+        if ($response->status == 'success') {
+            IPayPaymentProcessed::dispatch($transaction);
         }
     }
 }
