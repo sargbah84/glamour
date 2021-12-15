@@ -10,6 +10,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
         "arcanedev/log-viewer": "8.x",
         "darkghosthunter/laraguard": "^3.0",
         "doctrine/dbal": "^3.1",
@@ -27,10 +29,12 @@
         "livewire/livewire": "^2.0",
         "rappasoft/laravel-livewire-tables": "^1.0",
         "rappasoft/lockout": "^3.0",
+        "rinvex/laravel-subscriptions": "^5.0",
         "spatie/laravel-activitylog": "^3.14",
         "spatie/laravel-permission": "^3.11",
         "spatie/laravel-tags": "3.1",
-        "tabuna/breadcrumbs": "^2.2"
+        "tabuna/breadcrumbs": "^2.2",
+        "zgabievi/laravel-ipay": "^0.2.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

@@ -179,6 +179,7 @@ return [
         App\Providers\LocaleServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Payments\PaymentsServiceProvider::class,
 
     ],
 
@@ -233,7 +234,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Payment' => \App\Payments\Facades\Payment::class,
     ],
 
 ];
