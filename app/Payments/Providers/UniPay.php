@@ -42,8 +42,8 @@ class UniPay extends AbstractProvider implements Provider
             'MerchantOrderID' => $transaction->id,
             'OrderPrice' => $transaction->price,
             'OrderCurrency' => $transaction->currency,
-            'SuccessRedirectUrl' => route('frontend.user.account.order.callback', 'unipay'),
-            'CancelRedirectUrl' => route('frontend.user.account.order.callback', 'unipay'),
+            'SuccessRedirectUrl' => base64_encode(route('frontend.user.account.order.callback', 'unipay')),
+            'CancelRedirectUrl' => base64_encode(route('frontend.user.account.order.callback', 'unipay')),
             'CallBackUrl' => action('\App\Payments\Http\Controllers\PaymentsController@callback', ['provider' => 'unipay']),
             'Language' => 'EN',
             'OrderName' => $transaction->plan->name,
@@ -95,6 +95,7 @@ class UniPay extends AbstractProvider implements Provider
             }
         }
     }
+
     public function transactionStatus(Request $request): JsonResponse
     {
         $transaction = UniPayPaymentProcessed::find($request->input('order_id'));
