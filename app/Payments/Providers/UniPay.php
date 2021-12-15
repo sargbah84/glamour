@@ -7,6 +7,7 @@ use App\Payments\Events\UniPayPaymentProcessed;
 use App\Payments\Models\PaymentsUniPay;
 use App\Payments\Processors\UniPayProcessor;
 use DB;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -41,8 +42,8 @@ class UniPay extends AbstractProvider implements Provider
             'MerchantOrderID' => $transaction->id,
             'OrderPrice' => $transaction->price,
             'OrderCurrency' => $transaction->currency,
-            'SuccessRedirectUrl' => 'http://glamour.local/account/order/pro-plan',
-            'CancelRedirectUrl' => 'http://glamour.local/account/order/pro-plan',
+            'SuccessRedirectUrl' => route('frontend.user.account.order.callback', 'unipay'),
+            'CancelRedirectUrl' => route('frontend.user.account.order.callback', 'unipay'),
             'CallBackUrl' => action('\App\Payments\Http\Controllers\PaymentsController@callback', ['provider' => 'unipay']),
             'Language' => 'EN',
             'OrderName' => $transaction->plan->name,
@@ -93,5 +94,10 @@ class UniPay extends AbstractProvider implements Provider
                 }
             }
         }
+    }
+    public function transactionStatus(Request $request): JsonResponse
+    {
+        $transaction = UniPayPaymentProcessed::find($request->input('order_id'));
+        return response()->json(['status' => $transaction->status]);
     }
 }

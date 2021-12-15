@@ -36,17 +36,28 @@
                     <form action="{{ route('frontend.user.account.order.pay',$plan->slug) }}" class="validate"
                           method="POST">
                         @csrf
-                        <div class="form-group">
-                            <input type="radio" name="payment_gateway" value="ipay"
-                                   checked>
-                            <label for="huey">Ipay</label>
-                            <br>
-                            <input type="radio" name="payment_gateway" value="unipay">
-                            <label for="huey">UniPay</label>
-                        </div>
-                        <div class="form-group mb-0">
-                            <button type="submit" class="btn btn-primary btn-block rounded">Place Order</button>
-                        </div>
+                        @if(auth()->user()->subscribedTo($plan->id))
+                            <div class="form-group">
+                                <input type="radio" name="payment_gateway" value="ipay"
+                                       checked>
+                                <label for="huey">Ipay</label>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn btn-primary btn-block rounded">Renew Order</button>
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <input type="radio" name="payment_gateway" value="ipay"
+                                       checked>
+                                <label for="huey">Ipay</label>
+                                <br>
+                                <input type="radio" name="payment_gateway" value="unipay">
+                                <label for="huey">UniPay</label>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn btn-primary btn-block rounded">Place Order</button>
+                            </div>
+                        @endif
                     </form>
                 </div>
                 <div class="clearfix w-75 mx-auto my-4">

@@ -33,6 +33,9 @@ Route::group(['as' => 'user.', 'middleware' => 'auth'], function () {
 
     Route::post('account/order/{plan:slug}', [AccountController::class, 'pay'])->name('account.order.pay');
 
+    Route::get('/account/order/{provider}/callback', [AccountController::class, 'callback'])->where('provider',
+        implode('|', array_keys(config('payments.gateways'))))->name('account.order.callback');
+
     /*Route::get('courses', [AccountController::class, 'courses'])
         ->middleware('is_user')
         ->name('courses')

@@ -139,4 +139,8 @@ abstract class AbstractProvider implements Provider
         throw new InvalidArgumentException('Driver Not Support orderDetails Processing.');
     }
 
+    public function transactionStatus(Request $request)
+    {
+        throw new InvalidArgumentException('Driver Not Support transactionStatus.');
+    }
 }

@@ -34,12 +34,12 @@ class AccountController
 
     public function order(Plan $plan)
     {
-        return view('frontend.pages.user.order', compact('plan'));
+        return view('frontend.pages.user.order.order', compact('plan'));
     }
 
     public function pay(Request $request, Plan $plan)
     {
-        if($request->input('payment_gateway') == 'unipay') {
+        if ($request->input('payment_gateway') == 'unipay') {
             $transaction = PaymentsUniPay::create([
                 'user_id' => Auth::user()->id,
                 'plan_id' => $plan->id,
@@ -54,18 +54,41 @@ class AccountController
             ]));
 
         } else {
-            $transaction = PaymentsIPay::create([
-                'user_id' => Auth::user()->id,
-                'plan_id' => $plan->id,
-                'price' => $plan->price,
-                'currency' => $plan->currency,
-                'status' => UniPayProcessor::$STATUS[1000]
-            ]);
+            //TODO: this is possible only for IPAY and with card payment
+            if (auth()->user()->subscribedTo($plan->id)) {
+                $lastTransaction = PaymentsIPay::where('plan_id', $plan->id)
+                    ->where('user_id', Auth::user()->id)
+                    ->where('status', 'SUCCESS')
+                    ->latest()->first();
+
+                $transaction = PaymentsIPay::create([
+                    'gc_transaction_id' => $lastTransaction->gc_transaction_id,
+                    'user_id' => Auth::user()->id,
+                    'plan_id' => $plan->id,
+                    'price' => $plan->price,
+                    'currency' => $plan->currency,
+                    'status' => UniPayProcessor::$STATUS[1000],
+                    'is_recurring' => true
+                ]);
+            } else {
+                $transaction = PaymentsIPay::create([
+                    'user_id' => Auth::user()->id,
+                    'plan_id' => $plan->id,
+                    'price' => $plan->price,
+                    'currency' => $plan->currency,
+                    'status' => UniPayProcessor::$STATUS[1000]
+                ]);
+            }
 
             return redirect(action('\App\Payments\Http\Controllers\PaymentsController@redirect', [
                 'provider' => 'ipay',
                 'order' => $transaction->id,
             ]));
         }
+    }
+
+    public function callback($provider)
+    {
+        return view('frontend.pages.user.order.callback', compact('provider'));
     }
 }

@@ -10,12 +10,11 @@ interface Provider
 
     public function redirect($transaction);
 
-
     public function update($transaction);
-
 
     public function callback(Request $request);
 
     public function orderDetails($transaction);
 
+    public function transactionStatus(Request $request);
 }

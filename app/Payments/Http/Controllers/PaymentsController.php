@@ -19,4 +19,9 @@ class PaymentsController extends Controller
     {
         return Payment::with($provider)->callback($request);
     }
+
+    public function transactionStatus(Request $request, $provider)
+    {
+        return Payment::with($provider)->transactionStatus($request);
+    }
 }

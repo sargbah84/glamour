@@ -5,6 +5,7 @@ namespace App\Payments\Providers;
 use App\Payments\Contracts\Provider;
 use App\Payments\Events\IPayPaymentProcessed;
 use App\Payments\Models\PaymentsIPay;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -43,12 +44,11 @@ class IPay extends AbstractProvider implements Provider
             Bog::purchaseItem($transaction->plan->id, $transaction->plan->price * 1000, 1, $transaction->plan->description),
         ];
 
-        if ($transaction->is_reccurent) {
-            $response = Bog::repeat($transaction->transaction_order_id, Intent::Capture, $transaction->id, $units, $items);
+        if ($transaction->is_recurring) {
+            $response = Bog::repeat($transaction->gc_transaction_id, Intent::Capture, $transaction->id, $units, $items);
         } else {
             $response = Bog::checkout(Intent::Capture, $transaction->id, $units, $items);
         }
-
 
         if (isset($response->status) && $response->status === CheckoutStatus::Created) {
             $transaction->update(['transaction_hash' => $response->payment_hash, 'transaction_order_id' => $response->order_id]);
@@ -98,5 +98,11 @@ class IPay extends AbstractProvider implements Provider
         if ($response->status == 'success') {
             IPayPaymentProcessed::dispatch($transaction);
         }
+    }
+
+    public function transactionStatus(Request $request): JsonResponse
+    {
+        $transaction = PaymentsIPay::find($request->input('order_id'));
+        return response()->json(['status' => $transaction->status]);
     }
 }
