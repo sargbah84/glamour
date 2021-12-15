@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Domains\Auth\Listeners\RoleEventListener;
 use App\Domains\Auth\Listeners\UserEventListener;
+use App\Listeners\PlanSubscribed;
+use App\Payments\Events\IPayPaymentProcessed;
+use App\Payments\Events\UniPayPaymentProcessed;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +25,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UniPayPaymentProcessed::class => [
+            PlanSubscribed::class
+        ],
+        IPayPaymentProcessed::class => [
+            PlanSubscribed::class
+        ]
     ];
 
     /**

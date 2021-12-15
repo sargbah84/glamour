@@ -17,6 +17,8 @@ class HomeController
 
     public function plans()
     {
-        return view('frontend.pages.plans');
+        $plans = app('rinvex.subscriptions.plan')->get();
+
+        return view('frontend.pages.plans', compact('plans'));
     }
 }

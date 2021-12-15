@@ -24,12 +24,17 @@ Route::group(['as' => 'user.', 'middleware' => 'auth'], function () {
                 ->push(__('My Plan'), route('frontend.user.account.plan'));
         });
 
-    Route::get('account/order', [AccountController::class, 'order'])
+    Route::get('account/order/{plan:slug}', [AccountController::class, 'order'])
         ->name('account.order')
         ->breadcrumbs(function (Trail $trail) {
             $trail->parent('frontend.user.account')
-                ->push(__('Place Order'), route('frontend.user.account.order'));
+                ->push(__('Place Order'), route('frontend.user.account.order', request()->route()->plan));
         });
+
+    Route::post('account/order/{plan:slug}', [AccountController::class, 'pay'])->name('account.order.pay');
+
+    Route::get('/account/order/{provider}/callback', [AccountController::class, 'callback'])->where('provider',
+        implode('|', array_keys(config('payments.gateways'))))->name('account.order.callback');
 
     /*Route::get('courses', [AccountController::class, 'courses'])
         ->middleware('is_user')
