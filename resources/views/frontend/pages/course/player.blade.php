@@ -8,7 +8,7 @@
             <div class="col-md-10">
                 <div class="clearfix">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{ $lesson->video_url ?? 'https://player.vimeo.com/video/256470214?h=0a6898a592' }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{ $lesson->video_id() ?? '256470214' }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
 
