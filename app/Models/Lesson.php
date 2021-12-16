@@ -67,12 +67,12 @@ class Lesson extends Model
 
     public function next()
     {
-        return $this->where('duration', '<', $this->watched())->latest()->first();
+        return $this->where('id', '!=', $this->id)->where('duration', '<', $this->watched())->latest()->first();
     }
 
     public function previous()
     {
-        return $this->where('duration', '>', $this->watched())->oldest()->first();
+        return $this->where('id', '!=', $this->id)->where('duration', '<', $this->watched())->oldest()->first();
     }
 
     public function nextUrl()
