@@ -3,9 +3,9 @@
 namespace App\Payments;
 
 use App\Payments\Contracts\Factory;
+use App\Payments\Providers\IPay;
 use App\Payments\Providers\UniPay;
 use Illuminate\Support\Manager;
-use App\Payments\Providers\IPay;
 
 class PaymentsManager extends Manager implements Factory
 {

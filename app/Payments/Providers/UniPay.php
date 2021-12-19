@@ -6,7 +6,6 @@ use App\Payments\Contracts\Provider;
 use App\Payments\Events\UniPayPaymentProcessed;
 use App\Payments\Models\PaymentsUniPay;
 use App\Payments\Processors\UniPayProcessor;
-use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,7 +43,7 @@ class UniPay extends AbstractProvider implements Provider
             'OrderCurrency' => $transaction->currency,
             'SuccessRedirectUrl' => base64_encode(route('frontend.user.account.order.callback', 'unipay')),
             'CancelRedirectUrl' => base64_encode(route('frontend.user.account.order.callback', 'unipay')),
-            'CallBackUrl' => action('\App\Payments\Http\Controllers\PaymentsController@callback', ['provider' => 'unipay']),
+            'CallBackUrl' => url(config('payments.unipay.redirect_url')),
             'Language' => 'EN',
             'OrderName' => $transaction->plan->name,
             'OrderDescription' => $transaction->plan->description,
@@ -98,7 +97,7 @@ class UniPay extends AbstractProvider implements Provider
 
     public function transactionStatus(Request $request): JsonResponse
     {
-        $transaction = UniPayPaymentProcessed::find($request->input('order_id'));
+        $transaction = PaymentsUniPay::find($request->input('order_id'));
         return response()->json(['status' => $transaction->status]);
     }
 }
