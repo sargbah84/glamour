@@ -43,7 +43,7 @@ class UniPay extends AbstractProvider implements Provider
             'OrderCurrency' => $transaction->currency,
             'SuccessRedirectUrl' => base64_encode(route('frontend.user.account.order.callback', 'unipay')),
             'CancelRedirectUrl' => base64_encode(route('frontend.user.account.order.callback', 'unipay')),
-            'CallBackUrl' => url(config('payments.unipay.redirect_url')),
+            'CallBackUrl' => url(config('payments.gateways.unipay.redirect_url')),
             'Language' => 'EN',
             'OrderName' => $transaction->plan->name,
             'OrderDescription' => $transaction->plan->description,
