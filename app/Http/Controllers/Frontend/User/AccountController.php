@@ -59,6 +59,7 @@ class AccountController
                 $lastTransaction = PaymentsIPay::where('plan_id', $plan->id)
                     ->where('user_id', Auth::user()->id)
                     ->where('status', 'SUCCESS')
+                    ->where('transaction_payment_method', 'GC_CARD')
                     ->latest()->first();
 
                 $transaction = PaymentsIPay::create([

@@ -31,8 +31,6 @@ class UniPay extends AbstractProvider implements Provider
      */
     public function redirect($transaction)
     {
-        $processor = new UniPayProcessor(config('payments.gateways.unipay.merchantId'),
-            config('payments.gateways.unipay.secretKey'));
 
         $transaction = PaymentsUniPay::with('user', 'plan')->where('id', $transaction)->first();
 
@@ -49,7 +47,7 @@ class UniPay extends AbstractProvider implements Provider
             'OrderDescription' => $transaction->plan->description,
         ];
 
-
+        $processor = new UniPayProcessor();
         $response = $processor->createOrder($uniPayOrder);
 
         if ($response->errorcode == UniPayProcessor::$ERROR['OK']) {
@@ -60,7 +58,6 @@ class UniPay extends AbstractProvider implements Provider
             return redirect($response->data->Checkout);
 
         }
-
 
         /**
          * Handle error response.
@@ -76,8 +73,7 @@ class UniPay extends AbstractProvider implements Provider
      */
     public function callback(Request $request)
     {
-        $processor = new UniPayProcessor(config('payments.gateways.unipay.merchantId'),
-            config('payments.gateways.unipay.secretKey'));
+        $processor = new UniPayProcessor();
 
         if ($processor->validateCallback($request)) {
 
