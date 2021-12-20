@@ -21,11 +21,11 @@
                             @endforeach
                         </p>
                         @if($course->lessons->first()->hasWatched(auth()->user()))
-                            <a href="{{ url('/courses/lesson/'. $course->lessons->first()->next()->slug) }}" class="btn btn-primary">
+                            <a href="{{ url('/courses/lesson/'. $course->lessons->first()->next()->code) }}" class="btn btn-primary">
                                 Continue Watching
                             </a>
                         @else
-                            <a href="{{ url('/courses/lesson/'. $course->lessons->first()->slug) }}" class="btn btn-primary">
+                            <a href="{{ url('/courses/lesson/'. $course->lessons->first()->code) }}" class="btn btn-primary">
                                 Start Learning
                             </a>
                         @endif
@@ -41,7 +41,7 @@
                             
                                 <div class="list-group">
                                     @foreach($module->lessons as $lesson)
-                                        <a href="{{ url('/courses/lesson/' . $lesson->slug) }}" class="list-group-item list-group-item-action">
+                                        <a href="{{ url('/courses/lesson/' . $lesson->code) }}" class="list-group-item list-group-item-action">
                                             <img src="{{ $lesson->video_image() }}" width="70px" alt=""> 
                                             {{ $lesson->name }}
                                             @if($lesson->isWatched(auth()->user()))    
