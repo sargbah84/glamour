@@ -63,7 +63,7 @@ class UniPayProcessor
      *
      * @var string
      */
-    public string $submitUrl = 'https://apiv2.unipay.com/';
+    private string $url;
 
     /**
      * credentials merchant Id
@@ -88,14 +88,11 @@ class UniPayProcessor
     public int $amount;
 
 
-    /**
-     * @param $merchantId
-     * @param $secretKey
-     */
-    public function __construct($merchantId, $secretKey)
+    public function __construct()
     {
-        $this->merchantId = $merchantId;
-        $this->secretKey = $secretKey;
+        $this->url = config('payments.gateways.unipay.url');
+        $this->merchantId = config('payments.gateways.unipay.merchantId');
+        $this->secretKey = config('payments.gateways.unipay.secretKey');
     }
 
 
@@ -117,7 +114,7 @@ class UniPayProcessor
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_URL, $this->submitUrl . $additionalURL);
+        curl_setopt($curl, CURLOPT_URL, $this->url . '/' . $additionalURL);
 
         return curl_exec($curl);
     }
@@ -195,7 +192,7 @@ class UniPayProcessor
      */
     public function createOrder(array $uniPayOrder)
     {
-        $additionalURL = 'custom/checkout/v1/createorder';
+        $additionalURL = config('payments.gateways.unipay.checkout_url');
 
         $uniPayOrder = ['MerchantID' => $this->merchantId] + $uniPayOrder;
 

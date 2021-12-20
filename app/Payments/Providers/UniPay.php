@@ -6,7 +6,6 @@ use App\Payments\Contracts\Provider;
 use App\Payments\Events\UniPayPaymentProcessed;
 use App\Payments\Models\PaymentsUniPay;
 use App\Payments\Processors\UniPayProcessor;
-use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,8 +31,6 @@ class UniPay extends AbstractProvider implements Provider
      */
     public function redirect($transaction)
     {
-        $processor = new UniPayProcessor(config('payments.gateways.unipay.merchantId'),
-            config('payments.gateways.unipay.secretKey'));
 
         $transaction = PaymentsUniPay::with('user', 'plan')->where('id', $transaction)->first();
 
@@ -42,15 +39,15 @@ class UniPay extends AbstractProvider implements Provider
             'MerchantOrderID' => $transaction->id,
             'OrderPrice' => $transaction->price,
             'OrderCurrency' => $transaction->currency,
-            'SuccessRedirectUrl' => route('frontend.user.account.order.callback', 'unipay'),
-            'CancelRedirectUrl' => route('frontend.user.account.order.callback', 'unipay'),
+            'SuccessRedirectUrl' => base64_encode(url(config('payments.gateways.unipay.redirect_url') . '?order_id=' . $transaction->id)),
+            'CancelRedirectUrl' => base64_encode(url(config('payments.gateways.unipay.redirect_url') . '?order_id=' . $transaction->id)),
             'CallBackUrl' => action('\App\Payments\Http\Controllers\PaymentsController@callback', ['provider' => 'unipay']),
             'Language' => 'EN',
             'OrderName' => $transaction->plan->name,
             'OrderDescription' => $transaction->plan->description,
         ];
 
-
+        $processor = new UniPayProcessor();
         $response = $processor->createOrder($uniPayOrder);
 
         if ($response->errorcode == UniPayProcessor::$ERROR['OK']) {
@@ -61,7 +58,6 @@ class UniPay extends AbstractProvider implements Provider
             return redirect($response->data->Checkout);
 
         }
-
 
         /**
          * Handle error response.
@@ -77,8 +73,7 @@ class UniPay extends AbstractProvider implements Provider
      */
     public function callback(Request $request)
     {
-        $processor = new UniPayProcessor(config('payments.gateways.unipay.merchantId'),
-            config('payments.gateways.unipay.secretKey'));
+        $processor = new UniPayProcessor();
 
         if ($processor->validateCallback($request)) {
 
@@ -95,9 +90,10 @@ class UniPay extends AbstractProvider implements Provider
             }
         }
     }
+
     public function transactionStatus(Request $request): JsonResponse
     {
-        $transaction = UniPayPaymentProcessed::find($request->input('order_id'));
+        $transaction = PaymentsUniPay::find($request->input('order_id'));
         return response()->json(['status' => $transaction->status]);
     }
 }
