@@ -192,7 +192,7 @@ class UniPayProcessor
      */
     public function createOrder(array $uniPayOrder)
     {
-        $additionalURL = 'custom/checkout/v1/createorder';
+        $additionalURL = config('payments.gateways.unipay.checkout_url');
 
         $uniPayOrder = ['MerchantID' => $this->merchantId] + $uniPayOrder;
 

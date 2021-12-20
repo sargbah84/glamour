@@ -24,6 +24,11 @@ return [
              * Payment url from UniPay
              */
             'url' => env('UNIPAY_URL', 'https://apiv2.unipay.com'),
+
+            /**
+             * Checkout url from UniPay
+             */
+            'checkout_url' => env('UNIPAY_CHECKOUT_URL', 'custom/checkout/v1/createorder'),
         ],
         'ipay' => [],
     ]
