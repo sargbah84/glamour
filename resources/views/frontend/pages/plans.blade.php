@@ -13,11 +13,12 @@
                             <div class="col-md-4">
                                 <img src="https://via.placeholder.com/300" class="img-fluid" alt="Pro Plan" class="src">
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 text-{{ (request()->get('q') != $plan->slug ) ? '' : 'muted' }}">
                                 <h4 class="pt-2">{{$plan->name}}</h4>
                                 <p>{{$plan->description}}</p>
-                                <a href="{{ route('frontend.user.account.order',$plan->slug) }}" class="btn btn-primary rounded">Chose
-                                    Plan</a>
+                                <a href="{{ route('frontend.user.account.order',$plan->slug) }}" class="btn btn-primary rounded {{ (request()->get('q') != $plan->slug ) ?: 'disabled' }}">
+                                    {{ (request()->get('q') != $plan->slug ) ? 'Chose Plan' : 'This is your plan' }} <i class="fas fa-{{ (request()->get('q') != $plan->slug ) ? '' : 'lock' }}"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

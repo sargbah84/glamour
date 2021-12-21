@@ -30,7 +30,6 @@ class CourseController extends Controller
     public function details($slug)
     {
         $course = Course::where('slug', $slug)->first();
-
         return view('frontend.pages.course.details', compact('course'));
     }
 

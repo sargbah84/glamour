@@ -12,6 +12,8 @@ class DashboardController
      */
     public function index()
     {
-        return view('backend.pages.dashboard');
+        $plans = app('rinvex.subscriptions.plan')->get();
+
+        return view('backend.pages.dashboard', compact('plans'));
     }
 }
