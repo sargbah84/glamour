@@ -37,14 +37,25 @@ class PlansController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        return redirect()->route('admin.dashboard', $module->course->slug)->withFlashSuccess(__('Module created successfully'));
+        $plan = $this->plans->create([
+            'name' => $this->request->name,
+            'slug' => str_slug($this->request->name),
+            'description' => $this->request->description,
+            'is_active' => $this->request->input('is_active', 0),
+            'price' => $this->request->price,
+            'signup_fee' => '0.00',
+            'invoice_period' => $this->request->invoice_period,
+            'currency' => 'GEL',
+        ]);
+
+        return redirect()->route('admin.dashboard')->withFlashSuccess(__('Plan created successfully'));
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $module = Module::find($id);
+        $plan = $this->plans->where('slug', $slug)->first();
 
-        return view('backend.pages.plans.edit', compact('module'));
+        return view('backend.pages.plans.edit', compact('plan'));
     }
 
     public function update($id)
@@ -52,6 +63,17 @@ class PlansController extends Controller
         $this->validate($this->request, [
             'name' => 'required|max:255',
         ]);
+
+        $plan = $this->plans->where('id', $id)->first();
+        
+        $plan->name = $this->request->name;
+        $plan->slug = str_slug($this->request->name);
+        $plan->description = $this->request->description;
+        $plan->is_active = $this->request->input('is_active', 0);
+        $plan->price = $this->request->price;
+        $plan->invoice_period = $this->request->invoice_period;
+        $plan->currency = 'GEL';
+        $plan->save();
 
         return redirect()->route('admin.dashboard')->withFlashSuccess(__('Plans updated successfully'));
     }

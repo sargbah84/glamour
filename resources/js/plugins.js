@@ -29,6 +29,7 @@ $(function () {
     function disableSubmitButtons(form) {
         form.find('input[type="submit"]').attr('disabled', true);
         form.find('button[type="submit"]').attr('disabled', true);
+        form.find('input[type="submit"]').html('<i class="fa fa-spinner fa-spin"></i> Processing...');
     }
 
     /**
@@ -43,11 +44,11 @@ $(function () {
 
     /**
      * Disable all submit buttons once clicked
-     */
+     
     $('form').submit(function () {
         disableSubmitButtons($(this));
         return true;
-    });
+    });*/
 
     /**
      * Add a confirmation to a delete button/form
@@ -141,6 +142,9 @@ $(function () {
 
     $(".validate").validate({
         submitHandler: function(form) {
+            console.log(form)
+            $(form).find('button[type="submit"]').html('<i class="fa fa-spinner fa-spin"></i> Processing...');
+            $(form).find('button[type="submit"]').attr('disabled', true);
             form.submit();
         }
     });

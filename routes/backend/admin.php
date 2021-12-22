@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\LessonsController;
 use App\Http\Controllers\Backend\ModulesController;
 use App\Http\Controllers\Backend\CoursesController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PlansController;
 use Tabuna\Breadcrumbs\Trail;
 
 // All route names are prefixed with 'admin.'.
@@ -77,7 +78,18 @@ Route::group(['middleware' => 'role:'.config('global.access.role.admin')], funct
             Route::post('store', [LessonsController::class, 'store'])->name('courses.lesson.store');
             Route::post('update/{id}', [LessonsController::class, 'update'])->name('courses.lesson.update');
             Route::post('delete/{id}', [LessonsController::class, 'delete'])->name('courses.lesson.delete');
-        });
 
+        });
     });
+
+    // Plan routes
+    Route::group(['prefix' => 'plans'], function(){
+        Route::get('create', [PlansController::class, 'create'])->name('plans.create');
+        Route::get('edit/{id}', [PlansController::class, 'edit'])->name('plans.edit');
+
+        Route::post('store', [PlansController::class, 'store'])->name('plans.store');
+        Route::post('update/{id}', [PlansController::class, 'update'])->name('plans.update');
+        Route::post('delete/{id}', [PlansController::class, 'delete'])->name('plans.delete');
+    });
+
 });
