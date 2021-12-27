@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-md-2 text-center">
                         @if($lesson->next())
-                            <a href="{{ url('courses/lesson/'. $lesson->next()->slug) }}" class="btn btn-light btn-block">Next &rarr;</a>
+                            <a href="{{ url('courses/lesson/'. $lesson->next()->code) }}" class="btn btn-light btn-block">Next &rarr;</a>
                         @else
                             <a href="#" class="btn btn-light btn-block disabled">Finish</a>
                         @endif
@@ -36,7 +36,7 @@
                             
                                 <div class="list-group">
                                     @foreach($module->lessons as $lessonb)
-                                        <a href="{{ url('/courses/lesson/' . $lessonb->slug) }}" class="list-group-item list-group-item-action {{ ($lesson->id == $lessonb->id || $lessonb->isWatched(auth()->user())) ? 'text-primary' : '' }}">
+                                        <a href="{{ url('/courses/lesson/' . $lessonb->code) }}" class="list-group-item list-group-item-action {{ ($lesson->id == $lessonb->id || $lessonb->isWatched(auth()->user())) ? 'text-primary' : '' }}">
                                             <img src="{{ $lesson->video_image() }}" width="70px" alt=""> 
                                             {{ $lessonb->name }} 
                                         @if($lessonb->isWatched(auth()->user()))    
@@ -102,7 +102,7 @@
                     @if($lesson->next())
                         setTimeout(function() {
                             // redirect to next lesson
-                            window.location.href = '{{ url("courses/lesson/". $lesson->next()->slug) }}';
+                            window.location.href = '{{ url("courses/lesson/". $lesson->next()->code) }}';
                         }, 1000);
                     @endif
                 });

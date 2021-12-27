@@ -6,5 +6,5 @@
 @else
     <h4>@lang('Two Factor Authentication is Disabled')</h4>
 
-    <a href="{{ route('frontend.auth.account.2fa.create') }}" class="btn btn-success btn-sm btn-block">@lang('Enable Two Factor Authentication')</a>
+    <a href="{{ route('frontend.auth.account.2fa.create') }}" class="btn btn-success btn-sm btn-block disabled">@lang('Enable Two Factor Authentication')</a>
 @endif

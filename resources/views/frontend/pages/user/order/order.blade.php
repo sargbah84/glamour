@@ -6,6 +6,13 @@
     <div class="container py-5 animate__animated animate__fadeIn">
         <div class="row justify-content-center">
             <div class="col-md-7">
+
+                @if($logged_in_user && (! $logged_in_user->isUser()))
+                    <div class="alert alert-danger text-center pt-2 pb-2">
+                        @lang("The form is disabled for admin users.")
+                    </div><!--alert alert-warning-->
+                @endif
+
                 <div class="clearfix bg-white p-4 mb-4 shadow-sm">
                     <h4 class="pb-2">Order Details</h4>
                     <table class="table clearfix w-100 mb-0">
@@ -25,7 +32,7 @@
                                 {{$plan->name}} - {{__('Monthly Subscription')}}
                             </td>
                             <td class="text-right">
-                                {{$plan->price}} {{$plan->currency}}
+                                {{$plan->price}} ₾
                             </td>
                         </tr>
                         <tr>
@@ -37,25 +44,24 @@
                           method="POST">
                         @csrf
                         @if(auth()->user()->subscribedTo($plan->id))
-                            <div class="form-group">
-                                <input type="radio" name="payment_gateway" value="ipay"
-                                       checked>
-                                <label for="huey">Ipay</label>
+                            <div class="custom-control custom-radio mb-3">
+                                <input type="radio" name="payment_gateway" class="custom-control-input" value="ipay" checked>
+                                <label class="custom-control-label" for="huey">Ipay</label>
                             </div>
                             <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-primary btn-block rounded">Renew Order</button>
+                                <button type="submit" class="btn btn-primary btn-block rounded {{ (! $logged_in_user->isUser()) ? 'disabled' : '' }}">Renew Subscription</button>
                             </div>
                         @else
-                            <div class="form-group">
-                                <input type="radio" name="payment_gateway" value="ipay"
-                                       checked>
-                                <label for="huey">Ipay</label>
-                                <br>
-                                <input type="radio" name="payment_gateway" value="unipay">
-                                <label for="huey">UniPay</label>
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" name="payment_gateway" class="custom-control-input" id="ipay" value="ipay" checked>
+                                <label class="custom-control-label" for="ipay">Ipay</label>
+                            </div>
+                            <div class="custom-control custom-radio mb-4">
+                                <input type="radio" name="payment_gateway" class="custom-control-input" id="unipay" value="unipay">
+                                <label class="custom-control-label" for="unipay">UniPay</label>
                             </div>
                             <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-primary btn-block rounded">Place Order</button>
+                                <button type="submit" class="btn btn-primary btn-block rounded {{ (! $logged_in_user->isUser()) ? 'disabled' : '' }}">Place Order</button>
                             </div>
                         @endif
                     </form>

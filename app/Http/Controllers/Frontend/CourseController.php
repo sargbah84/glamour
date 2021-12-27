@@ -30,13 +30,12 @@ class CourseController extends Controller
     public function details($slug)
     {
         $course = Course::where('slug', $slug)->first();
-
         return view('frontend.pages.course.details', compact('course'));
     }
 
-    public function player($slug)
+    public function player($code)
     {
-        $lesson = Lesson::where('slug', $slug)->first();
+        $lesson = Lesson::where('code', $code)->first();
         $modules = Module::where('course_id', $lesson->module->course_id)->get();
 
         return view('frontend.pages.course.player', compact('lesson', 'modules'));

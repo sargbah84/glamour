@@ -7,8 +7,14 @@
         <div class="row justify-content-center">
             <div class="col-md-7">
 
+                @if($logged_in_user && (!$logged_in_user->isUser()))
+                    <div class="alert alert-danger text-center pt-2 pb-2">
+                        @lang("The form is disabled for admin users.")
+                    </div><!--alert alert-warning-->
+                @endif
+
                 @foreach($plans as $plan)
-                    <div class="clearfix bg-white p-3 mb-4 shadow-sm">
+                    <div class="clearfix bg-white p-3 mb-4 shadow-sm" style="opacity: {{ ($logged_in_user->isUser()) ? 1 : '.6' }}">
                         <div class="row">
                             <div class="col-md-4">
                                 <img src="https://via.placeholder.com/300" class="img-fluid" alt="Pro Plan" class="src">
@@ -16,8 +22,15 @@
                             <div class="col-md-8">
                                 <h4 class="pt-2">{{$plan->name}}</h4>
                                 <p>{{$plan->description}}</p>
-                                <a href="{{ route('frontend.user.account.order',$plan->slug) }}" class="btn btn-primary rounded">Chose
-                                    Plan</a>
+                                @if($logged_in_user)
+                                    <a href="{{ route('frontend.user.account.order',$plan->slug) }}" class="btn btn-primary rounded {{ (!$logged_in_user->isUser()) ? 'disabled' : '' }}">
+                                        {{ ($logged_in_user->hasActiveSubscription() && $logged_in_user->userSubscriptionName() == $plan->slug ) ? 'Renew Subscription' : 'Chose Plan' }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('frontend.user.account.order',$plan->slug) }}" class="btn btn-primary rounded">
+                                        Chose Plan
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>

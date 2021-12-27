@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Lesson;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LessonsController extends Controller
 {
@@ -52,7 +53,7 @@ class LessonsController extends Controller
         $lesson->video_url = $this->request->video_url;
         $lesson->type = $this->request->type ?? 'vimeo';
         $lesson->duration = $this->request->duration ?? '10';
-        $lesson->code = str_random(10);
+        $lesson->code = Str::uuid();
         $lesson->save();
 
         return redirect()->route('admin.courses.details', $lesson->module->course->slug)->withFlashSuccess(__('Lesson created successfully'));
@@ -81,6 +82,7 @@ class LessonsController extends Controller
         $lesson->module_id = $this->request->module_id;
         $lesson->video_url = $this->request->video_url;
         $lesson->duration = $this->request->duration ?? '10';
+        $lesson->code = $this->request->code ?? Str::uuid();
         $lesson->save();
 
         return redirect()->route('admin.courses.details', $lesson->module->course->slug)->withFlashSuccess(__('Lesson updated successfully'));

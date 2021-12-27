@@ -72,7 +72,7 @@
                         </div><!--tab-password-->
                     @endif
 
-                    <div class="tab-pane fade p-4" id="two-factor-authentication" role="tabpanel" aria-labelledby="two-factor-authentication-tab">
+                    <div class="tab-pane fade p-4 disabled" id="two-factor-authentication" role="tabpanel" aria-labelledby="two-factor-authentication-tab">
                         @include('frontend.pages.user.account.tabs.two-factor-authentication')
                     </div><!--tab-information-->
                 </div><!--tab-content-->

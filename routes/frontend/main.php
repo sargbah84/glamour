@@ -33,14 +33,14 @@ Route::group(['middleware' => ['auth', config('global.access.middleware.verified
             ->breadcrumbs(function (Trail $trail, $course) {
                 $trail->parent('frontend.pages.courses')
                     ->push(__($course), route('frontend.pages.courses', $course));
-            });
+            })->middleware('isSubscribed');
 
         Route::get('lesson/{slug}', [CourseController::class, 'player'])
             ->name('pages.courses.lesson.show')
             ->breadcrumbs(function (Trail $trail, $lesson) {
                 $trail->parent('frontend.pages.courses')
                     ->push(__($lesson), route('frontend.pages.courses.lesson.show', $lesson));
-            });
+            })->middleware('isSubscribed');
     
     });
 

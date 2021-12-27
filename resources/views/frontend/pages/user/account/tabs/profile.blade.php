@@ -30,12 +30,12 @@
         @if($logged_in_user->isUser())
             <tr>
                 <th>@lang('Subscription')</th>
-                <td>22 days left - <a href="{{ route('frontend.user.account.plan') }}" class="text-danger">Pro Plan</a></td>
+                <td>{{ ($logged_in_user->hasActiveSubscription()) ? $logged_in_user->userSubscriptionDaysLeftString() : '0 days' }} left - <a href="{{ ($logged_in_user->hasActiveSubscription()) ? url('/plans' . '?q=' . $logged_in_user->userSubscriptionName()) : url('/plans') }}" class="text-danger">{{ ($logged_in_user->hasActiveSubscription()) ? $logged_in_user->userSubscriptionPlanName() : 'No Subscription' }}</a></td>
             </tr>
 
             <tr>
                 <th>@lang('Status')</th>
-                <td><span class="badge badge-success p-2">Active</span></td>
+                <td><span class="badge badge-{{ ($logged_in_user->hasActiveSubscription()) ? 'success' : 'danger' }} p-2">{{ ($logged_in_user->hasActiveSubscription()) ? 'Active' : 'Inactive' }}</span></td>
             </tr>
         @endif
     </table>

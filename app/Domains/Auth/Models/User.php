@@ -125,6 +125,95 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
         })->latest()->first()->watched ?? 0;
     }
 
+    public function userSubscription()
+    {
+        return $this->subscriptions()->first();
+    }
+
+    public function userSubscriptionName()
+    {
+        return $this->userSubscription()->name ?? null;
+    }
+
+    public function userSubscriptionPlanName()
+    {
+        return $this->userSubscription()->plan->name ?? null;
+    }
+
+    public function userSubscriptionPlanPrice()
+    {
+        return $this->userSubscription()->plan->price ?? null;
+    }
+
+    public function userSubscriptionPlanInterval()
+    {
+        return $this->userSubscription()->plan->interval ?? null;
+    }
+
+    public function userSubscriptionPlanCurrency()
+    {
+        return $this->userSubscription()->plan->currency ?? null;
+    }
+
+    public function hasActiveSubscription()
+    {
+        if($this->userSubscription()) {
+            return $this->isAdmin() || $this->userSubscription()->where('ends_at', '>', now())->exists();
+        }
+
+        return false;
+    }
+
+    public function userSubscriptionEnds()
+    {
+        return $this->userSubscription()->where('ends_at', '>', now())->first()->ends_at ?? null;
+    }
+
+    public function userSubscriptionStarts()
+    {
+        return $this->userSubscription()->where('starts_at', '<', now())->first()->starts_at ?? null;
+    }
+
+    public function userSubscriptionStartsAt()
+    {
+        return $this->userSubscriptionStarts()->format('d/m/Y');
+    }
+
+    public function userSubscriptionEndsAt()
+    {
+        return $this->userSubscriptionEnds()->format('d/m/Y');
+    }
+
+    public function userSubscriptionDaysLeft()
+    {
+        return $this->userSubscriptionEnds()->diffInDays();
+    }
+
+    public function userSubscriptionDaysLeftPercentage()
+    {
+        return $this->userSubscriptionDaysLeft() / 30 * 100;
+    }
+
+    public function userSubscriptionDaysLeftPercentageRounded()
+    {
+        return round($this->userSubscriptionDaysLeftPercentage());
+    }
+
+    public function userSubscriptionDaysLeftPercentageRoundedString()
+    {
+        return $this->userSubscriptionDaysLeftPercentageRounded() . '%';
+    }
+
+    public function userSubscriptionDaysLeftString()
+    {
+        return $this->userSubscriptionDaysLeft() . ' days';
+    }
+
+    public function userSubscriptionOnTrial()
+    {
+        return $this->userSubscription()->where('ends_at', '>', now())->first()->onTrial();
+    }
+
     /**
      * Send the password reset notification.
      *
