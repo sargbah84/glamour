@@ -41,7 +41,7 @@ class UniPay extends AbstractProvider implements Provider
             'OrderCurrency' => $transaction->currency,
             'SuccessRedirectUrl' => base64_encode(url(config('payments.gateways.unipay.redirect_url') . '?order_id=' . $transaction->id)),
             'CancelRedirectUrl' => base64_encode(url(config('payments.gateways.unipay.redirect_url') . '?order_id=' . $transaction->id)),
-            'CallBackUrl' => action('\App\Payments\Http\Controllers\PaymentsController@callback', ['provider' => 'unipay']),
+            'CallBackUrl' => base64_encode(action('\App\Payments\Http\Controllers\PaymentsController@callback', ['provider' => 'unipay'])),
             'Language' => 'EN',
             'OrderName' => $transaction->plan->name,
             'OrderDescription' => $transaction->plan->description,
